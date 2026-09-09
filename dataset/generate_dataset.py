@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+"""
+Generate standardized benchmarking datasets for LLM Inference on SGLang.
+Outputs 3 distinct subsets (code, prose, json) and 1 consolidated dataset.
+"""
+
+import json
+import os
+
+def generate_datasets(output_dir="dataset"):
+    os.makedirs(output_dir, exist_ok=True)
+    
+    code_prompts = [
+        {"id": "code_01", "category": "code", "prompt": "Write a Python function `lru_cache_custom(capacity: int)` that implements an LRU cache using an OrderedDict with get and put methods. Include type hints, edge case handling for capacity <= 0, and clear docstrings.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_02", "category": "code", "prompt": "Implement a Python class for a Trie (Prefix Tree) with insert, search, and startsWith methods. Include full type annotations and handle empty string inputs.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_03", "category": "code", "prompt": "Write an asynchronous Python function using asyncio and aiohttp to fetch data concurrently from a list of URLs with an asyncio.Semaphore limiting concurrency to 5. Include timeout and error handling.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_04", "category": "code", "prompt": "Implement a Python generator function `sliding_window(iterable, n)` that yields sliding windows of size n from the input iterable. Include docstrings and doctests.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_05", "category": "code", "prompt": "Write a Python script that reads a CSV with columns 'timestamp', 'user_id', 'amount', calculates 7-day rolling average spend per user using pandas or standard library, and outputs the result sorted by user_id and timestamp.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_06", "category": "code", "prompt": "Implement Dijkstra's shortest path algorithm in Python using heapq. Accept an adjacency list graph and source node, returning distance dict and predecessor dict for path reconstruction.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_07", "category": "code", "prompt": "Write a Python decorator `@retry(max_attempts=3, delay=1.0, backoff=2.0)` that retries a function upon catching specified exceptions with exponential backoff and jitter.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_08", "category": "code", "prompt": "Implement a thread-safe Singleton pattern in Python using a metaclass with double-checked locking mechanism and threading.Lock.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_09", "category": "code", "prompt": "Write a Python function that computes the Longest Common Subsequence (LCS) of two strings using dynamic programming and reconstructs the actual subsequence string.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_10", "category": "code", "prompt": "Implement a custom memory-mapped circular ring buffer in Python for fixed-size float32 arrays, supporting push, pop, and peek operations.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_11", "category": "code", "prompt": "Write a Python function to serialize and deserialize a binary tree into a string using breadth-first traversal (level order).", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_12", "category": "code", "prompt": "Implement a rate limiter in Python using the Token Bucket algorithm. Provide thread-safe `consume(tokens=1)` method.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_13", "category": "code", "prompt": "Write a Python script to traverse a directory recursively and compute SHA-256 hashes of all files in parallel using concurrent.futures.ProcessPoolExecutor.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_14", "category": "code", "prompt": "Implement an interval tree or interval merge function in Python that merges overlapping intervals and inserts new intervals in O(N log N) time.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_15", "category": "code", "prompt": "Write a PyTorch custom dataset class and training loop skeleton with AdamW optimizer, cosine annealing scheduler, and gradient clipping.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_16", "category": "code", "prompt": "Implement the A* (A-star) pathfinding algorithm on a 2D grid in Python with Manhattan distance heuristic and obstacle avoidance.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_17", "category": "code", "prompt": "Write a Python context manager `timer()` that measures execution time of a code block and logs elapsed milliseconds, supporting re-entrant usage.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_18", "category": "code", "prompt": "Implement a topological sort algorithm in Python using Kahn's algorithm (indegree array) that detects cycles in directed graphs.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_19", "category": "code", "prompt": "Write a Python function to solve the N-Queens problem using backtracking, returning all valid board configurations formatted as lists of strings.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_20", "category": "code", "prompt": "Implement an efficient Redis-like in-memory key-value store with TTL expiration in Python, including cleanup of expired keys on access.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_21", "category": "code", "prompt": "Write a Python function to validate whether an IPv4 or IPv6 address is valid without using external networking libraries.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_22", "category": "code", "prompt": "Implement a MinHeap in Python from scratch with `push`, `pop`, `peek`, and `heapify` operations without using heapq.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_23", "category": "code", "prompt": "Write a Python script that parses standard Nginx access log lines using regex and outputs the top 5 IP addresses and top 5 HTTP status codes.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_24", "category": "code", "prompt": "Implement a Disjoint Set Union (DSU) / Union-Find data structure in Python with path compression and union by rank.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_25", "category": "code", "prompt": "Write an asynchronous websocket client in Python using websockets that auto-reconnects with exponential backoff on disconnect.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_26", "category": "code", "prompt": "Implement a basic B-tree node split and insertion algorithm in Python for order M=3 (2-3-4 tree).", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_27", "category": "code", "prompt": "Write a Python function to evaluate a Reverse Polish Notation (RPN) arithmetic expression supporting +, -, *, /, and power operators.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_28", "category": "code", "prompt": "Implement an event bus (pub/sub pattern) in Python with synchronous and asynchronous subscriber support.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_29", "category": "code", "prompt": "Write a Python function that finds all strongly connected components (SCC) in a directed graph using Tarjan's algorithm.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "code_30", "category": "code", "prompt": "Implement a Bloom Filter in Python with customizable capacity and false positive probability using mmh3 and bitarray.", "max_tokens": 512, "temperature": 0.0}
+    ]
+
+    prose_prompts = [
+        {"id": "prose_01", "category": "prose", "prompt": "Explain the architectural differences between Tensor Parallelism and Pipeline Parallelism in distributed LLM inference, contrasting memory overhead, communication bandwidth, and latency characteristics.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_02", "category": "prose", "prompt": "Write a comprehensive technical guide explaining how Speculative Decoding works in modern inference engines like SGLang and vLLM. Detail the draft-verify cycle and acceptance criteria.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_03", "category": "prose", "prompt": "Discuss the trade-offs between PagedAttention and RadixAttention. Explain how tree-structured KV cache sharing accelerates multi-turn conversations and few-shot prompting.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_04", "category": "prose", "prompt": "Analyze the impact of quantization methods (AWQ, GPTQ, FP8) on memory bandwidth, matrix multiplication throughput, and perplexity degradation on NVIDIA Ada Lovelace architecture.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_05", "category": "prose", "prompt": "Explain why consumer GPUs like the RTX 4090 face unique communication bottlenecks in multi-GPU setups without NVLink, and how PCIe Gen4 x16 latency impacts tensor parallel all-reduce operations.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_06", "category": "prose", "prompt": "Write an executive briefing detailing best practices for deploying large language models in enterprise private clouds, addressing latency SLAs, GPU utilization, and fault tolerance.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_07", "category": "prose", "prompt": "Explain the mathematical formulation and intuition behind FlashAttention-2 and FlashInfer, focusing on tiling, online softmax normalization, and SRAM usage.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_08", "category": "prose", "prompt": "Compare continuous batching (iteration-level scheduling) versus static request batching in LLM serving systems. Describe how it prevents head-of-line blocking.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_09", "category": "prose", "prompt": "Explain how CUDA graphs reduce CPU launch overhead and kernel submission latency during autoregressive token generation.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_10", "category": "prose", "prompt": "Describe the differences between Grouped-Query Attention (GQA), Multi-Head Attention (MHA), and Multi-Query Attention (MQA), calculating their KV cache memory savings for a 32B model.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_11", "category": "prose", "prompt": "Write a clear, non-technical explanation of how speculative execution in computer processors compares to speculative decoding in language models.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_12", "category": "prose", "prompt": "Explain how RoPE (Rotary Position Embedding) encodes relative position in self-attention, including frequency scaling techniques like YaRN for extended context windows.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_13", "category": "prose", "prompt": "Discuss the challenges of serving Mixture-of-Experts (MoE) models compared to dense models, focusing on expert routing, all-to-all communication, and VRAM memory footprint.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_14", "category": "prose", "prompt": "Write an in-depth breakdown of Time-To-First-Token (TTFT) versus Inter-Token Latency (ITL / TPOT), explaining which hardware and algorithmic factors dominate each phase.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_15", "category": "prose", "prompt": "Explain why speculative decoding produces strictly identical or statistically equivalent output distributions to autoregressive sampling from the target model.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_16", "category": "prose", "prompt": "Describe the architecture and training objective of EAGLE (Extensible Automatic Generation of Large-scale language model speculation) and how it differs from standalone draft models.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_17", "category": "prose", "prompt": "Write a detailed post-mortem analysis of a hypothetical production outage caused by GPU out-of-memory (OOM) during high-concurrency LLM inference bursts.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_18", "category": "prose", "prompt": "Explain chunked prefill (prompt chunking) in SGLang/vLLM and how it prevents prefill requests from starving in-flight decoding requests.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_19", "category": "prose", "prompt": "Discuss the trade-offs of using Docker containers vs bare-metal execution for high-performance GPU AI workloads, covering driver bindings, IPC, and shm-size.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_20", "category": "prose", "prompt": "Explain the concept of speculative decoding verification trees and how tree-based attention masks verify multiple draft branches in a single forward pass.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_21", "category": "prose", "prompt": "Write an essay evaluating the environmental and energy efficiency gains of speculative decoding in enterprise datacenter deployments.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_22", "category": "prose", "prompt": "Explain how prompt caching mechanisms interact with API billing models and multi-tenant security boundaries.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_23", "category": "prose", "prompt": "Describe the operational differences between vLLM, SGLang, and TensorRT-LLM in terms of engine architecture, compilation overhead, and feature velocity.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_24", "category": "prose", "prompt": "Explain how NCCL ring and tree all-reduce algorithms work over PCIe vs NVLink switches.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_25", "category": "prose", "prompt": "Discuss why speculative decoding speedup degrades when batch size increases, explaining memory bandwidth saturation.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_26", "category": "prose", "prompt": "Write a guide for ML engineers on configuring Prometheus metrics and Grafana alerts for LLM serving infrastructure.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_27", "category": "prose", "prompt": "Explain the mechanics of SwiGLU activation functions compared to standard GeLU or ReLU in modern LLM architectures like Qwen and LLaMA.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_28", "category": "prose", "prompt": "Describe how token vocabulary size (e.g., Qwen's 152K vocabulary) impacts embedding memory and final projection layer computational overhead.", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_29", "category": "prose", "prompt": "Explain how speculative decoding acceptance rates vary across natural languages (e.g. English vs Chinese vs agglutinative languages).", "max_tokens": 512, "temperature": 0.0},
+        {"id": "prose_30", "category": "prose", "prompt": "Write a technical summary of the Qwen2.5 model family architecture, highlighting improvements in coding, mathematics, and instruction following over Qwen2.", "max_tokens": 512, "temperature": 0.0}
+    ]
+
+    json_prompts = [
+        {"id": "json_01", "category": "json", "prompt": "Extract the customer, items, and totals from this receipt text and return strictly valid JSON matching this schema: {\"customer_name\": string, \"date\": string, \"items\": [{\"name\": string, \"quantity\": int, \"price\": float}], \"subtotal\": float, \"tax\": float, \"total\": float}. Text: 'Customer: Alice Smith, Date: 2026-03-01. Bought 2 Apples at $1.50 each, 1 Milk at $3.20. Subtotal $6.20, Tax $0.50, Total $6.70.'", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_02", "category": "json", "prompt": "Parse this server error log into JSON schema: {\"timestamp\": string, \"level\": string, \"service\": string, \"error_code\": int, \"message\": string, \"stack_trace_frames\": [string]}. Log: '2026-09-06T14:23:01Z [ERROR] auth-service (500): Database connection timeout while querying user 8492. Frames: connection_pool.py:112, auth.py:45'", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_03", "category": "json", "prompt": "Generate a JSON schema definition (JSON Schema Draft 7) for a REST API endpoint that registers a user with username, email, age (minimum 18), and optional preferences.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_04", "category": "json", "prompt": "Convert the following tabular employee data into a valid JSON array of objects with keys: id, name, department, salary, hire_date. Data: 1 | John Doe | Eng | 120000 | 2022-01-15 \\n 2 | Jane Doe | HR | 85000 | 2021-06-10", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_05", "category": "json", "prompt": "Extract entity relations from the sentence: 'Apple Inc. was founded by Steve Jobs and Steve Wozniak in Los Altos, California.' Return strictly a JSON object: {\"entities\": [{\"name\": string, \"type\": string}], \"relations\": [{\"subject\": string, \"relation\": string, \"object\": string}]}.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_06", "category": "json", "prompt": "Generate a JSON configuration file for an SGLang server with fields: model_path, draft_model_path, tp_size, mem_fraction_static, speculative_algorithm, speculative_num_steps, port, and host.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_07", "category": "json", "prompt": "Extract medical appointment details from: 'Dr. Gregory House scheduled with patient Robert Chase on October 14, 2026 at 10:30 AM in Clinic 3B for diagnostic follow-up.' Output JSON: {\"doctor\": string, \"patient\": string, \"date\": string, \"time\": string, \"location\": string, \"reason\": string}.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_08", "category": "json", "prompt": "Represent a Git commit graph with 3 branches and 5 commits as a JSON DAG with nodes: [{\"hash\": string, \"message\": string, \"author\": string, \"parents\": [string]}].", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_09", "category": "json", "prompt": "Parse this flight itinerary into JSON: 'Flight UA824 from SFO (San Francisco) to NRT (Tokyo Narita), departing 2026-11-04 11:15 AM PST, arriving 2026-11-05 3:45 PM JST. Seat 12A, Business Class, Confirmed.' Schema: {\"airline\": string, \"flight_number\": string, \"origin\": string, \"destination\": string, \"departure\": string, \"arrival\": string, \"seat\": string, \"class\": string, \"status\": string}.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_10", "category": "json", "prompt": "Given the system performance metrics: 'CPU: 84.2%, RAM: 58.1 GB used / 64 GB total, GPU0: 92% util, 21.4GB VRAM, GPU1: 91% util, 21.2GB VRAM', output JSON matching schema: {\"cpu_percent\": float, \"ram\": {\"used_gb\": float, \"total_gb\": float}, \"gpus\": [{\"id\": int, \"utilization_percent\": float, \"vram_used_gb\": float}]}.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_11", "category": "json", "prompt": "Extract shipping container logistics data into JSON: 'Container MSCU7829104, Size 40ft High Cube, Carrier MSC, Status: In Transit from Shanghai to Rotterdam, ETA: 2026-10-12, Weight: 24,500 kg.'", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_12", "category": "json", "prompt": "Generate a JSON representation of an OpenAPI 3.0 path object for GET /api/v1/models that returns a list of models with id, object, created, and owned_by fields.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_13", "category": "json", "prompt": "Parse this hotel reservation email into JSON: 'Dear Mark, your booking #HTL-9481 at Grand Hotel Vienna for 3 nights from Dec 24, 2026 to Dec 27, 2026 is confirmed. Room: Deluxe Suite. Total: 850 EUR.'", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_14", "category": "json", "prompt": "Convert this SQL query: 'SELECT u.id, u.name, COUNT(o.id) as order_count FROM users u LEFT JOIN orders o ON u.id = o.user_id WHERE u.status = \'active\' GROUP BY u.id HAVING order_count > 5 ORDER BY order_count DESC LIMIT 10' into an AST-like JSON structure.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_15", "category": "json", "prompt": "Extract ingredients and steps from: 'To make guacamole: Mash 3 ripe avocados. Fold in 1/2 cup diced red onion, 1 minced jalapeno, 2 tbsp lime juice, 1/4 cup chopped cilantro, and 1/2 tsp salt.' Return JSON: {\"recipe\": string, \"ingredients\": [{\"item\": string, \"amount\": string}], \"steps\": [string]}.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_16", "category": "json", "prompt": "Parse this financial stock ticker payload: 'AAPL: price 245.50, change +3.20 (+1.32%), volume 54,200,000, market_cap 3.75T, PE_ratio 32.4' into JSON.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_17", "category": "json", "prompt": "Extract real estate listing details: '4 bed, 3 bath single family home in Austin, TX 78704. Built in 2018, 2,850 sqft, lot size 0.25 acres. Listed at $895,000. HOA fee $50/mo.' Output JSON.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_18", "category": "json", "prompt": "Convert this command line invocation: 'docker run -d --gpus all --ipc=host -p 30000:30000 -v /cache:/root/.cache lmsysorg/sglang:latest python3 -m sglang.launch_server --tp 2' into a JSON object detailing container configuration.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_19", "category": "json", "prompt": "Parse this weather report into JSON: 'Current conditions in Seattle: Overcast, 52°F (11°C), Humidity 82%, Wind SSW at 8 mph, Barometer 29.92 in, Visibility 10 miles, 0% chance of rain next 2 hours.'", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_20", "category": "json", "prompt": "Extract job posting data: 'Senior Machine Learning Engineer at Anthropic. Location: San Francisco, CA (Hybrid). Salary: $240,000 - $320,000 + Equity. Requirements: 5+ years ML experience, distributed training with PyTorch/JAX, CUDA optimization.' Return JSON.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_21", "category": "json", "prompt": "Output a JSON representation of an RGB color palette with 5 complementary colors for a dark-mode IDE theme, specifying hex, rgb array, and role for each color.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_22", "category": "json", "prompt": "Extract academic citation metadata: 'Vaswani, A., Shazeer, N., Parmar, N., et al. (2017). Attention Is All You Need. Advances in Neural Information Processing Systems (NeurIPS), 30, 5998-6008.' into JSON schema with title, authors, year, publication, volume, pages.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_23", "category": "json", "prompt": "Parse this hardware diagnostic output: 'PCIe Bus 01:00.0: NVIDIA GeForce RTX 4090, 24576 MiB GDDR6X, Link Width x16, Link Speed 16.0 GT/s (PCIe Gen4), Temp 54C, Power Draw 185W / 450W.' into JSON.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_24", "category": "json", "prompt": "Convert this package.json dependency section with 6 packages into a structured JSON security audit report with mocked CVE counts, severity ratings, and recommended upgrade versions.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_25", "category": "json", "prompt": "Extract e-commerce product review details: 'Rating: 4/5 stars by Sarah K. on Aug 12, 2026. \"Great mechanical keyboard, switches feel crisp. Keycaps could be better quality for the price, but RGB lighting is stunning.\" Verified Purchase.' into JSON.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_26", "category": "json", "prompt": "Parse this DNS record dump: 'example.com. 300 IN A 93.184.216.34; example.com. 3600 IN MX 10 mail.example.com.; example.com. 86400 IN TXT \"v=spf1 ~all\"' into a structured JSON array of DNS records.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_27", "category": "json", "prompt": "Extract gym workout log data: 'Leg Day - Sept 5, 2026: Squats: 4 sets (135x10, 225x8, 275x6, 315x4). Roman Chair: 3 sets of 15. Leg Press: 3 sets of 12 at 450 lbs. Total time: 55 mins.' into JSON.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_28", "category": "json", "prompt": "Generate a JSON schema for a Kubernetes Pod manifest with containers, volumeMounts, resources (requests and limits), and nodeSelector.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_29", "category": "json", "prompt": "Parse this bank transaction statement line: '2026-09-02 DEBIT - $42.50 AT WHOLE FOODS MARKET #10294 AUSTIN TX, CATEGORY: GROCERIES, POSTED BALANCE: $4,120.30' into JSON.", "max_tokens": 384, "temperature": 0.0},
+        {"id": "json_30", "category": "json", "prompt": "Extract event conference schedule: 'Keynote by Dr. Fei-Fei Li at 09:00 AM in Ballroom A on AI Frontiers. Coffee break at 10:30 AM in Foyer. Session 1: Large Scale Inference at 11:00 AM in Room 204.' Output JSON.", "max_tokens": 384, "temperature": 0.0}
+    ]
+
+    all_prompts = code_prompts + prose_prompts + json_prompts
+
+    files = {
+        "prompts_code.jsonl": code_prompts,
+        "prompts_prose.jsonl": prose_prompts,
+        "prompts_json.jsonl": json_prompts,
+        "combined_benchmark_dataset.jsonl": all_prompts
+    }
+
+    for fname, data in files.items():
+        fpath = os.path.join(output_dir, fname)
+        with open(fpath, "w", encoding="utf-8") as f:
+            for item in data:
+                f.write(json.dumps(item) + "\n")
+        print(f"Wrote {len(data)} items to {fpath}")
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="Generate benchmark datasets")
+    parser.add_argument("--output-dir", default="dataset", help="Output directory")
+    args = parser.parse_args()
+    generate_datasets(args.output_dir)

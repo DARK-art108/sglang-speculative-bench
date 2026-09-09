@@ -1,0 +1,23 @@
+# Environment & secrets
+.env
+.env.*
+*.env
+
+# OMP session metadata
+.omp/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+*.egg-info/
+
+# Results data & telemetry (preserve results/ directory via .gitkeep)
+results/*.csv
+results/*.log
+
+# System files
+.DS_Store
+Thumbs.db
