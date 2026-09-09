@@ -173,7 +173,8 @@ The client (`scripts/run_benchmark.py`) instruments both client-observed latency
 * **Time-Per-Output-Token ($\text{TPOT}$):** $\text{TPOT} = (t_{\text{end}} - t_{\text{first token}}) / N_{\text{tokens}}$ ($\text{ms/tok}$).
 * **Decode Throughput:** $\text{Throughput} = N_{\text{completion tokens}} / (t_{\text{end}} - t_{\text{first token}})$ ($\text{tok/s}$).
 * **Speculative Acceptance Rate ($\alpha$):** Scraped directly from SGLang endpoint `/metrics`:
-  $$\alpha = \frac{\Delta \text{sglang:spec\_accepted\_tokens}}{\Delta \text{sglang:spec\_drafted\_tokens}}$$
+  $$\alpha = \frac{\Delta \text{Accepted Tokens}}{\Delta \text{Drafted Tokens}}$$
+  *(Where Prometheus counters are `sglang:spec_accepted_tokens` and `sglang:spec_drafted_tokens`)*
 * **Average Accepted Length:** Mean tokens accepted per target verification pass (`sglang:spec_accept_length`).
 
 ---
