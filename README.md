@@ -4,7 +4,7 @@
 ### Rigorous Speculative Decoding Benchmarks for Qwen2.5-32B on Dual Consumer GPUs without NVLink
 
 [![Engine: SGLang](https://img.shields.io/badge/Engine-SGLang_v0.4+-blue.svg)](https://github.com/sgl-project/sglang)
-[![Model: Qwen2.5--32B--AWQ](https://img.shields.io/badge/Target_Model-Qwen2.5--32B--Instruct--AWQ-purple.svg)](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct-AWQ)
+[![Model: Qwen2.5-32B-AWQ](https://img.shields.io/badge/Target_Model-Qwen2.5--32B--Instruct--AWQ-purple.svg)](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct-AWQ)
 [![Hardware: 2x RTX 4090](https://img.shields.io/badge/Hardware-2x_RTX_4090_(48GB)-green.svg)](#hardware-memory--interconnect-budget)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-orange.svg)](LICENSE)
 
@@ -14,7 +14,7 @@
 
 ## Abstract
 
-Autoregressive transformer decoding is strictly bounded by GPU memory bandwidth and inter-device communication latency. When serving medium-large parameter models (e.g., 32B) on consumer hardware under Tensor Parallelism ($\text{TP}=2$), the absence of high-bandwidth NVLink ($900\text{ GB/s}$) forces all-reduce tensor synchronizations over commodity PCIe buses ($\sim 11.7\text{ -- }31.5\text{ GB/s}$). This creates an interconnect bottleneck where inter-GPU synchronization latency dominates decode time.
+Autoregressive transformer decoding is strictly bounded by GPU memory bandwidth and inter-device communication latency. When serving medium-large parameter models (e.g., 32B) on consumer hardware under Tensor Parallelism ($\text{TP}=2$), the absence of high-bandwidth NVLink ($900\text{ GB/s}$) forces all-reduce tensor synchronizations over commodity PCIe buses ($\sim 11.7\text{ to }31.5\text{ GB/s}$). This creates an interconnect bottleneck where inter-GPU synchronization latency dominates decode time.
 
 **`sglang-speculative-bench`** provides an end-to-end, reproducible research testbed evaluating how speculative decoding mitigates this interconnect bottleneck. By proposing $K$ draft tokens and verifying them in a **single batched target forward pass**, speculative decoding amortizes $K \times L$ all-reduce operations into a single verification step. This repository contains the complete benchmarking harness, standardized 90-prompt multi-domain dataset, automated Prometheus metric scrapers, and GPU telemetry daemons for SGLang.
 
@@ -22,9 +22,9 @@ Autoregressive transformer decoding is strictly bounded by GPU memory bandwidth 
 
 ## Key Research Questions & Hypotheses
 
-* **$H_1$ (Interconnect Amortization):** Speculative decoding delivers a higher *relative* speedup on PCIe-constrained consumer hardware ($1.6\times\text{--}2.8\times$) than on high-bandwidth NVLink systems because it bypasses per-token PCIe AllReduce latency.
+* **$H_1$ (Interconnect Amortization):** Speculative decoding delivers a higher *relative* speedup on PCIe-constrained consumer hardware ($1.6\times\text{ to }2.8\times$) than on high-bandwidth NVLink systems because it bypasses per-token PCIe AllReduce latency.
 * **$H_2$ (Domain Entropy Invariance):** Speculative acceptance rate ($\alpha$) correlates inversely with output sequence entropy:
-  $$\alpha_{\text{JSON}} \;(75\%\text{--}90\%) \;>\; \alpha_{\text{Code}} \;(70\%\text{--}85\%) \;>\; \alpha_{\text{Prose}} \;(55\%\text{--}65\%)$$
+  $$\alpha_{\text{JSON}} \; (75\%\text{--}90\%) \;>\; \alpha_{\text{Code}} \; (70\%\text{--}85\%) \;>\; \alpha_{\text{Prose}} \; (55\%\text{--}65\%)$$
 * **$H_3$ (Draft Architecture Trade-offs):** A lightweight tree-speculation head (**EAGLE-3**, $\sim 500\text{ MB}$) achieves higher effective acceptance and throughput than a full autoregressive small language model (**Standalone Qwen2.5-1.5B**, $\sim 3.1\text{ GB}$) while consuming $84\%$ less draft VRAM.
 
 ---
@@ -89,8 +89,8 @@ Total VRAM per Card: 24,564 MiB
 
 The evaluation suite comprises **90 curated, distinct prompts** stratified across three predictable entropy profiles to prevent RadixAttention prefix caching confounders during throughput analysis:
 
-1. **`dataset/prompts_code.jsonl` (30 prompts):** Algorithmic routines, asynchronous pipelines, and data structures. Medium entropy; expected accept rate **$70\%\text{--}85\%$**.
-2. **`dataset/prompts_json.jsonl` (30 prompts):** Schema-constrained extraction, API specifications, and database records. Low entropy; expected accept rate **$75\%\text{--}90\%$**.
+1. **`dataset/prompts_code.jsonl` (30 prompts):** Algorithmic routines, asynchronous pipelines, and data structures. Medium entropy; expected accept rate **$70\%\text{ to }85\%$**.
+2. **`dataset/prompts_json.jsonl` (30 prompts):** Schema-constrained extraction, API specifications, and database records. Low entropy; expected accept rate **$75\%\text{ to }90\%$**.
 3. **`dataset/prompts_prose.jsonl` (30 prompts):** Technical post-mortems, systems analysis, and architectural trade-offs. High entropy; expected accept rate **$55\%\text{--}65\%$**.
 4. **`dataset/combined_benchmark_dataset.jsonl` (90 prompts):** Full multi-domain evaluation suite ($42,240$ total generated tokens).
 
@@ -169,11 +169,11 @@ kill -9 $MONITOR_PID
 
 The client (`scripts/run_benchmark.py`) instruments both client-observed latency and engine-level Prometheus counters:
 
-* **Time-To-First-Token ($\text{TTFT}$):** $t_{\text{first\_token}} - t_{\text{start}}$ ($\text{ms}$).
-* **Time-Per-Output-Token ($\text{TPOT}$):** $(t_{\text{end}} - t_{\text{first\_token}}) / N_{\text{tokens}}$ ($\text{ms/tok}$).
-* **Decode Throughput:** $N_{\text{completion\_tokens}} / (t_{\text{end}} - t_{\text{first\_token}})$ ($\text{tok/s}$).
-* **Speculative Acceptance Rate:** Scraped directly from SGLang endpoint `/metrics`:
-  $$\alpha = \frac{\Delta \mathtt{sglang:spec\_accepted\_tokens}}{\Delta \mathtt{sglang:spec\_drafted\_tokens}}$$
+* **Time-To-First-Token ($\text{TTFT}$):** $\text{TTFT} = t_{\text{first token}} - t_{\text{start}}$ ($\text{ms}$).
+* **Time-Per-Output-Token ($\text{TPOT}$):** $\text{TPOT} = (t_{\text{end}} - t_{\text{first token}}) / N_{\text{tokens}}$ ($\text{ms/tok}$).
+* **Decode Throughput:** $\text{Throughput} = N_{\text{completion tokens}} / (t_{\text{end}} - t_{\text{first token}})$ ($\text{tok/s}$).
+* **Speculative Acceptance Rate ($\alpha$):** Scraped directly from SGLang endpoint `/metrics`:
+  $$\alpha = \frac{\Delta \text{sglang:spec\_accepted\_tokens}}{\Delta \text{sglang:spec\_drafted\_tokens}}$$
 * **Average Accepted Length:** Mean tokens accepted per target verification pass (`sglang:spec_accept_length`).
 
 ---
