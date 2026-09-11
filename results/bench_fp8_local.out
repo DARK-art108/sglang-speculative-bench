@@ -1,0 +1,112 @@
+==================================================
+Starting Benchmark: baseline_fp8kv
+Endpoint: http://localhost:30000 | Model: Qwen/Qwen2.5-32B-Instruct-AWQ
+Dataset: dataset/combined_benchmark_dataset.jsonl (90 items, limit=0, warmup=2)
+==================================================
+Running 2 warmup requests...
+Warmup complete.
+[1/90] code_01 (code): Tokens: 512 | TTFT: 140.7ms | Decode: 55.49 tok/s
+[2/90] code_02 (code): Tokens: 499 | TTFT: 73.6ms | Decode: 55.36 tok/s
+[3/90] code_03 (code): Tokens: 512 | TTFT: 35.2ms | Decode: 55.24 tok/s
+[4/90] code_04 (code): Tokens: 512 | TTFT: 36.3ms | Decode: 55.13 tok/s
+[5/90] code_05 (code): Tokens: 512 | TTFT: 35.4ms | Decode: 55.05 tok/s
+[6/90] code_06 (code): Tokens: 512 | TTFT: 35.6ms | Decode: 55.01 tok/s
+[7/90] code_07 (code): Tokens: 475 | TTFT: 35.7ms | Decode: 54.96 tok/s
+[8/90] code_08 (code): Tokens: 481 | TTFT: 36.5ms | Decode: 54.94 tok/s
+[9/90] code_09 (code): Tokens: 512 | TTFT: 34.7ms | Decode: 54.88 tok/s
+[10/90] code_10 (code): Tokens: 512 | TTFT: 33.3ms | Decode: 54.84 tok/s
+[11/90] code_11 (code): Tokens: 512 | TTFT: 33.2ms | Decode: 54.81 tok/s
+[12/90] code_12 (code): Tokens: 512 | TTFT: 36.0ms | Decode: 54.80 tok/s
+[13/90] code_13 (code): Tokens: 512 | TTFT: 36.3ms | Decode: 54.77 tok/s
+[14/90] code_14 (code): Tokens: 512 | TTFT: 34.6ms | Decode: 54.77 tok/s
+[15/90] code_15 (code): Tokens: 512 | TTFT: 33.2ms | Decode: 54.76 tok/s
+[16/90] code_16 (code): Tokens: 512 | TTFT: 34.9ms | Decode: 54.75 tok/s
+[17/90] code_17 (code): Tokens: 460 | TTFT: 35.1ms | Decode: 54.78 tok/s
+[18/90] code_18 (code): Tokens: 512 | TTFT: 33.0ms | Decode: 54.73 tok/s
+[19/90] code_19 (code): Tokens: 512 | TTFT: 35.2ms | Decode: 54.74 tok/s
+[20/90] code_20 (code): Tokens: 512 | TTFT: 34.3ms | Decode: 54.74 tok/s
+[21/90] code_21 (code): Tokens: 512 | TTFT: 35.1ms | Decode: 54.75 tok/s
+[22/90] code_22 (code): Tokens: 512 | TTFT: 35.0ms | Decode: 54.76 tok/s
+[23/90] code_23 (code): Tokens: 512 | TTFT: 34.6ms | Decode: 54.75 tok/s
+[24/90] code_24 (code): Tokens: 512 | TTFT: 34.5ms | Decode: 54.76 tok/s
+[25/90] code_25 (code): Tokens: 512 | TTFT: 33.2ms | Decode: 54.75 tok/s
+[26/90] code_26 (code): Tokens: 512 | TTFT: 32.9ms | Decode: 54.74 tok/s
+[27/90] code_27 (code): Tokens: 512 | TTFT: 32.6ms | Decode: 54.71 tok/s
+[28/90] code_28 (code): Tokens: 512 | TTFT: 33.1ms | Decode: 54.74 tok/s
+[29/90] code_29 (code): Tokens: 512 | TTFT: 33.3ms | Decode: 54.70 tok/s
+[30/90] code_30 (code): Tokens: 512 | TTFT: 31.5ms | Decode: 54.71 tok/s
+[31/90] prose_01 (prose): Tokens: 512 | TTFT: 35.6ms | Decode: 54.68 tok/s
+[32/90] prose_02 (prose): Tokens: 512 | TTFT: 35.5ms | Decode: 54.68 tok/s
+[33/90] prose_03 (prose): Tokens: 512 | TTFT: 35.7ms | Decode: 54.70 tok/s
+[34/90] prose_04 (prose): Tokens: 512 | TTFT: 35.3ms | Decode: 54.70 tok/s
+[35/90] prose_05 (prose): Tokens: 512 | TTFT: 40.3ms | Decode: 54.68 tok/s
+[36/90] prose_06 (prose): Tokens: 512 | TTFT: 33.2ms | Decode: 54.69 tok/s
+[37/90] prose_07 (prose): Tokens: 512 | TTFT: 36.3ms | Decode: 54.69 tok/s
+[38/90] prose_08 (prose): Tokens: 512 | TTFT: 31.4ms | Decode: 54.68 tok/s
+[39/90] prose_09 (prose): Tokens: 512 | TTFT: 32.8ms | Decode: 54.68 tok/s
+[40/90] prose_10 (prose): Tokens: 512 | TTFT: 40.4ms | Decode: 54.71 tok/s
+[41/90] prose_11 (prose): Tokens: 407 | TTFT: 33.7ms | Decode: 54.76 tok/s
+[42/90] prose_12 (prose): Tokens: 512 | TTFT: 35.5ms | Decode: 54.73 tok/s
+[43/90] prose_13 (prose): Tokens: 512 | TTFT: 36.2ms | Decode: 54.72 tok/s
+[44/90] prose_14 (prose): Tokens: 512 | TTFT: 35.3ms | Decode: 54.76 tok/s
+[45/90] prose_15 (prose): Tokens: 512 | TTFT: 33.3ms | Decode: 54.78 tok/s
+[46/90] prose_16 (prose): Tokens: 494 | TTFT: 35.4ms | Decode: 54.76 tok/s
+[47/90] prose_17 (prose): Tokens: 512 | TTFT: 35.0ms | Decode: 54.76 tok/s
+[48/90] prose_18 (prose): Tokens: 512 | TTFT: 35.0ms | Decode: 54.75 tok/s
+[49/90] prose_19 (prose): Tokens: 512 | TTFT: 34.0ms | Decode: 54.76 tok/s
+[50/90] prose_20 (prose): Tokens: 512 | TTFT: 32.5ms | Decode: 54.72 tok/s
+[51/90] prose_21 (prose): Tokens: 512 | TTFT: 34.0ms | Decode: 54.75 tok/s
+[52/90] prose_22 (prose): Tokens: 512 | TTFT: 33.6ms | Decode: 54.75 tok/s
+[53/90] prose_23 (prose): Tokens: 512 | TTFT: 35.8ms | Decode: 54.72 tok/s
+[54/90] prose_24 (prose): Tokens: 512 | TTFT: 33.7ms | Decode: 54.74 tok/s
+[55/90] prose_25 (prose): Tokens: 512 | TTFT: 32.3ms | Decode: 54.73 tok/s
+[56/90] prose_26 (prose): Tokens: 512 | TTFT: 34.1ms | Decode: 54.72 tok/s
+[57/90] prose_27 (prose): Tokens: 512 | TTFT: 35.3ms | Decode: 54.74 tok/s
+[58/90] prose_28 (prose): Tokens: 512 | TTFT: 35.6ms | Decode: 54.73 tok/s
+[59/90] prose_29 (prose): Tokens: 512 | TTFT: 31.0ms | Decode: 54.74 tok/s
+[60/90] prose_30 (prose): Tokens: 512 | TTFT: 35.5ms | Decode: 54.73 tok/s
+[61/90] json_01 (json): Tokens: 118 | TTFT: 80.2ms | Decode: 55.09 tok/s
+[62/90] json_02 (json): Tokens: 316 | TTFT: 66.0ms | Decode: 54.78 tok/s
+[63/90] json_03 (json): Tokens: 384 | TTFT: 35.9ms | Decode: 54.80 tok/s
+[64/90] json_04 (json): Tokens: 133 | TTFT: 60.9ms | Decode: 55.09 tok/s
+[65/90] json_05 (json): Tokens: 151 | TTFT: 55.8ms | Decode: 55.06 tok/s
+[66/90] json_06 (json): Tokens: 311 | TTFT: 35.6ms | Decode: 54.84 tok/s
+[67/90] json_07 (json): Tokens: 83 | TTFT: 60.9ms | Decode: 55.40 tok/s
+[68/90] json_08 (json): Tokens: 384 | TTFT: 35.4ms | Decode: 54.79 tok/s
+[69/90] json_09 (json): Tokens: 184 | TTFT: 79.9ms | Decode: 54.91 tok/s
+[70/90] json_10 (json): Tokens: 134 | TTFT: 66.3ms | Decode: 55.04 tok/s
+[71/90] json_11 (json): Tokens: 97 | TTFT: 55.8ms | Decode: 55.29 tok/s
+[72/90] json_12 (json): Tokens: 384 | TTFT: 35.3ms | Decode: 54.78 tok/s
+[73/90] json_13 (json): Tokens: 128 | TTFT: 53.0ms | Decode: 55.13 tok/s
+[74/90] json_14 (json): Tokens: 384 | TTFT: 57.1ms | Decode: 54.75 tok/s
+[75/90] json_15 (json): Tokens: 179 | TTFT: 59.4ms | Decode: 54.97 tok/s
+[76/90] json_16 (json): Tokens: 153 | TTFT: 53.9ms | Decode: 55.06 tok/s
+[77/90] json_17 (json): Tokens: 137 | TTFT: 54.2ms | Decode: 55.09 tok/s
+[78/90] json_18 (json): Tokens: 338 | TTFT: 54.1ms | Decode: 54.80 tok/s
+[79/90] json_19 (json): Tokens: 136 | TTFT: 53.8ms | Decode: 55.12 tok/s
+[80/90] json_20 (json): Tokens: 116 | TTFT: 53.0ms | Decode: 55.17 tok/s
+[81/90] json_21 (json): Tokens: 344 | TTFT: 35.6ms | Decode: 54.84 tok/s
+[82/90] json_22 (json): Tokens: 109 | TTFT: 58.3ms | Decode: 55.16 tok/s
+[83/90] json_23 (json): Tokens: 202 | TTFT: 60.2ms | Decode: 54.89 tok/s
+[84/90] json_24 (json): Tokens: 384 | TTFT: 35.5ms | Decode: 54.78 tok/s
+[85/90] json_25 (json): Tokens: 95 | TTFT: 56.1ms | Decode: 55.26 tok/s
+[86/90] json_26 (json): Tokens: 225 | TTFT: 56.5ms | Decode: 54.87 tok/s
+[87/90] json_27 (json): Tokens: 272 | TTFT: 66.5ms | Decode: 54.78 tok/s
+[88/90] json_28 (json): Tokens: 384 | TTFT: 34.3ms | Decode: 54.78 tok/s
+[89/90] json_29 (json): Tokens: 110 | TTFT: 56.1ms | Decode: 55.20 tok/s
+[90/90] json_30 (json): Tokens: 162 | TTFT: 56.5ms | Decode: 54.99 tok/s
+
+==================================================
+SUMMARY FOR baseline_fp8kv (n=90)
+==================================================
+Decode Throughput (tok/s):
+  Best (Max):   55.49 tok/s
+  Median:       54.77 tok/s
+  Mean:         54.86 tok/s
+  Min:          54.68 tok/s
+  StdDev:       0.19 tok/s
+Time-To-First-Token (TTFT):
+  Median:       35.5 ms
+  Mean:         42.7 ms
+Results saved to: results/benchmark_runs.csv
+==================================================
