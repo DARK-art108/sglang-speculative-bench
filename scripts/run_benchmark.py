@@ -166,7 +166,7 @@ def main():
         
     # Benchmark runs
     results = []
-    test_prompts = prompts[:args.limit]
+    test_prompts = prompts if args.limit == 0 else prompts[:args.limit]
     
     for idx, p in enumerate(test_prompts, start=1):
         prompt_id = p.get("id", f"p_{idx}")
