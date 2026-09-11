@@ -118,7 +118,7 @@ def main():
     parser.add_argument("--output-csv", default="results/benchmark_runs.csv", help="CSV output path")
     parser.add_argument("--config-name", default="speculative_standalone", help="Configuration label")
     parser.add_argument("--warmup", type=int, default=2, help="Number of warmup requests")
-    parser.add_argument("--limit", type=int, default=30, help="Max requests to test")
+    parser.add_argument("--limit", type=int, default=0, help="Max requests to test (0 = all)")
     args = parser.parse_args()
     
     # Load dataset
@@ -174,13 +174,27 @@ def main():
         max_tokens = p.get("max_tokens", 512)
         temp = p.get("temperature", 0.0)
         
-        # Scrape metrics before/after to observe speculative counters
+        # Scrape metrics before/after to compute per-request speculative deltas
         m_before = get_prometheus_metrics(args.endpoint)
         res = send_chat_completion_stream(args.endpoint, args.model, p["prompt"], max_tokens, temp)
         m_after = get_prometheus_metrics(args.endpoint)
-        
-        spec_rate = m_after.get("sglang:spec_accept_rate", None)
-        spec_len = m_after.get("sglang:spec_accept_length", None)
+
+        # SGLang exposes spec metrics as cumulative counters; delta isolates this request.
+        def _delta(key):
+            b, a = m_before.get(key), m_after.get(key)
+            if b is None or a is None:
+                return None
+            d = a - b
+            return d if d > 0 else None
+
+        accepted = _delta("sglang:spec_accepted_num_tokens")
+        drafted = _delta("sglang:spec_num_draft_tokens")
+        if accepted and drafted:
+            spec_rate = accepted / drafted
+            spec_len = accepted / max(1, _delta("sglang:spec_num_requests") or 1)
+        else:
+            spec_rate = None
+            spec_len = None
         
         res["prompt_id"] = prompt_id
         res["category"] = category
@@ -191,7 +205,6 @@ def main():
         # Write to CSV
         csv_writer.writerow([
             time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-            args.config_name, args.model, prompt_id, category,
             res["prompt_tokens"], res["completion_tokens"],
             round(res["ttft_s"], 4), round(res["decode_time_s"], 4),
             round(res["total_time_s"], 4), round(res["decode_tok_per_sec"], 2),
