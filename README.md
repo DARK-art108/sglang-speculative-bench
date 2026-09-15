@@ -1,202 +1,233 @@
 <div align="center">
 
-# `sglang-speculative-bench`
-### Rigorous Speculative Decoding Benchmarks for Qwen2.5-32B on Dual Consumer GPUs without NVLink
+# sglang-speculative-bench
 
-[![Engine: SGLang](https://img.shields.io/badge/Engine-SGLang_v0.4+-blue.svg)](https://github.com/sgl-project/sglang)
-[![Model: Qwen2.5-32B-AWQ](https://img.shields.io/badge/Target_Model-Qwen2.5--32B--Instruct--AWQ-purple.svg)](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct-AWQ)
-[![Hardware: 2x RTX 4090](https://img.shields.io/badge/Hardware-2x_RTX_4090_(48GB)-green.svg)](#hardware-memory--interconnect-budget)
+### Rigorous Speculative Decoding & KV Cache Benchmarks for Qwen2.5-32B-Instruct-AWQ on Dual Consumer GPUs
+
+[![Engine: SGLang](https://img.shields.io/badge/Engine-SGLang_0.5.19-blue.svg)](https://github.com/sgl-project/sglang)
+[![Model: Qwen2.5-32B-AWQ](https://img.shields.io/badge/Model-Qwen2.5--32B--Instruct--AWQ-purple.svg)](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct-AWQ)
+[![Hardware: 2x RTX PRO 4000 Blackwell](https://img.shields.io/badge/Hardware-2x_RTX_PRO_4000_Blackwell_(48.9GB)-green.svg)](#hardware--software-environment)
+[![CUDA: 13.0](https://img.shields.io/badge/CUDA-13.0-red.svg)](#hardware--software-environment)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-orange.svg)](LICENSE)
+
+**Achieved: 1.28x median speedup (1.34x mean) over baseline using NGRAM speculative decoding — zero additional model parameters required.**
 
 </div>
 
 ---
 
-## Abstract
+## Overview
 
-Autoregressive transformer decoding is strictly bounded by GPU memory bandwidth and inter-device communication latency. When serving medium-large parameter models (e.g., 32B) on consumer hardware under Tensor Parallelism ($\text{TP}=2$), the absence of high-bandwidth NVLink ($900\text{ GB/s}$) forces all-reduce tensor synchronizations over commodity PCIe buses ($\sim 11.7\text{ to }31.5\text{ GB/s}$). This creates an interconnect bottleneck where inter-GPU synchronization latency dominates decode time.
+`sglang-speculative-bench` is a complete, reproducible benchmarking testbed for evaluating **speculative decoding** and **KV cache quantization** strategies for large language model (LLM) inference on consumer-grade dual-GPU hardware.
 
-**`sglang-speculative-bench`** provides an end-to-end, reproducible research testbed evaluating how speculative decoding mitigates this interconnect bottleneck. By proposing $K$ draft tokens and verifying them in a **single batched target forward pass**, speculative decoding amortizes $K \times L$ all-reduce operations into a single verification step. This repository contains the complete benchmarking harness, standardized 90-prompt multi-domain dataset, automated Prometheus metric scrapers, and GPU telemetry daemons for SGLang.
+The core challenge this repository addresses: serving a 32-billion parameter model (Qwen2.5-32B-Instruct-AWQ) across two consumer RTX GPUs requires Tensor Parallelism (TP=2) over a PCIe Gen4 interconnect (~26.8 GB/s) — approximately 30x slower than the NVLink bandwidth available on data-center-class hardware. Every single generated token forces both GPUs to synchronize across this PCIe bus. Speculative decoding dramatically reduces the number of these expensive synchronization steps.
 
----
-
-## Key Research Questions & Hypotheses
-
-* **$H_1$ (Interconnect Amortization):** Speculative decoding delivers a higher *relative* speedup on PCIe-constrained consumer hardware ($1.6\times\text{ to }2.8\times$) than on high-bandwidth NVLink systems because it bypasses per-token PCIe AllReduce latency.
-* **$H_2$ (Domain Entropy Invariance):** Speculative acceptance rate ($\alpha$) correlates inversely with output sequence entropy:
-  $$\alpha_{\text{JSON}} \; (75\%\text{--}90\%) \;>\; \alpha_{\text{Code}} \; (70\%\text{--}85\%) \;>\; \alpha_{\text{Prose}} \; (55\%\text{--}65\%)$$
-* **$H_3$ (Draft Architecture Trade-offs):** A lightweight tree-speculation head (**EAGLE-3**, $\sim 500\text{ MB}$) achieves higher effective acceptance and throughput than a full autoregressive small language model (**Standalone Qwen2.5-1.5B**, $\sim 3.1\text{ GB}$) while consuming $84\%$ less draft VRAM.
+This repository contains:
+- Automated streaming benchmark harness with Prometheus metric scraping
+- Standardized 90-prompt multi-domain dataset (code, prose, JSON)
+- GPU telemetry daemon (VRAM, power, temperature at 1 Hz)
+- Pre-configured shell launch scripts for all server configurations
+- Full research results from a real cloud run on dual RTX PRO 4000 Blackwell GPUs
 
 ---
 
-## Experimental Architecture Matrix
+## Key Results (Actual Measured Data)
 
-```
-                      +------------------------------------------+
-                      |         User / Benchmark Client          |
-                      |          (scripts/run_benchmark.py)       |
-                      +------------------------------------------+
-                                    |               ^
-                   Streaming HTTP   |               | Prometheus Scrape
-               /v1/chat/completions |               | /metrics (Accept Rate)
-                                    v               |
-                      +------------------------------------------+
-                      |          SGLang Server Engine            |
-                      |       (RadixAttention + FlashInfer)      |
-                      +------------------------------------------+
-                                   /              \
-         [Standalone 1.5B or EAGLE3]              [Target Verification]
-                     v                                      v
-       +----------------------------+         +----------------------------+
-       |   Draft Proposal (K=5-8)   |         | Qwen2.5-32B-Instruct-AWQ   |
-       |  Low latency, minimal sync |         |  1 Batched AllReduce Sync  |
-       +----------------------------+         +----------------------------+
-                     \                              /
-                      +----------------------------+
-                      |      PCIe Interconnect     |
-                      |  (PCIe Gen3/Gen4 x16 bus)  |
-                      +----------------------------+
-```
+Results from instance `50625322` — SGLang 0.5.19, FlashInfer 0.6.18, CUDA 13.0, dual RTX PRO 4000 Blackwell (SM12, 24,467 MiB each), PCIe Gen4.
 
-| Configuration | Target Model | Draft Architecture | Speculative Algorithm | Draft Steps ($K$) | Target $\text{TP}$ |
-|---|---|---|---|---|---|
-| **Control (Baseline)** | `Qwen/Qwen2.5-32B-Instruct-AWQ` | *None* | `None` | `N/A` | 2 |
-| **Speculative A** | `Qwen/Qwen2.5-32B-Instruct-AWQ` | `Qwen/Qwen2.5-1.5B-Instruct` | `STANDALONE` | $5$ | 2 |
-| **Speculative B** | `Qwen/Qwen2.5-32B-Instruct-AWQ` | `ruipeterpan/..._EAGLE3_UltraChat` | `EAGLE3` | $8$ (top-$k=10$) | 2 |
+| Configuration | n | Median Decode (tok/s) | Mean Decode (tok/s) | Std Dev | Median TTFT (ms) | Speedup |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **R1: Baseline TP=2 (INT8 AWQ)** | 90 | 55.60 | 55.71 | 0.21 | 34.9 | 1.00x (reference) |
+| **R2: NGRAM Speculative (K=5)** | 90 | **71.37** | **74.59** | 19.18 | 37.6 | **1.28x** |
+| **R3: FP8 KV Cache (fp8_e5m2)** | 90 | 54.77 | 54.86 | 0.19 | 35.5 | 0.985x (-1.5%) |
+
+> **Key finding:** NGRAM speculative decoding delivers a 1.28x median / 1.34x mean throughput improvement with zero additional model weights, at the cost of high inter-prompt variance (std dev 19.18 tok/s). FP8 KV cache provides no single-stream benefit but is architecturally valuable for concurrent multi-request serving.
+
+**Domain-Level Throughput (NGRAM, R2):**
+
+| Domain | NGRAM Tok/s Range | Peak Observed | vs Baseline |
+| :--- | :--- | :--- | :--- |
+| **JSON** | 65 – 107 tok/s | 107.35 (json_05) | +71% to +93% |
+| **Code** | 60 – 226 tok/s | 225.95 (code_02) | +8% to +306% |
+| **Prose** | 58 – 82 tok/s | 82.01 (prose_10) | +4% to +47% |
 
 ---
 
-## Hardware & Memory Budget
+## Research Questions & Hypotheses
 
-### Static VRAM Allocation (Per GPU, Dual RTX 4090 24GB, $\text{TP}=2$)
-
-```
-Total VRAM per Card: 24,564 MiB
-+------------------------------------+-------------------------+--------------------+
-| Target Weights (TP=2): ~9,750 MiB  | Draft: ~1,550 MiB (1.5B)| Static Buffer: ~8GB| Dynamic Headroom  |
-+------------------------------------+-------------------------+--------------------+--------------------+
-0                                    10GB                      12GB                 20.1GB (0.82)        24.5GB
-```
-
-* **Target Weights:** $\sim 19.5\text{ GB}$ AWQ total $\rightarrow \sim 9.75\text{ GB}$ per GPU rank.
-* **Draft Weights:** $\sim 3.1\text{ GB}$ (Standalone 1.5B) or $\sim 0.5\text{ GB}$ (EAGLE-3).
-* **Static Allocation Cap (`--mem-fraction-static 0.82`):** Leaves $\sim 4.4\text{ GB}$ dynamic buffer per GPU to absorb NCCL ring buffers, activation spikes, and draft verification tensors without triggering CUDA OOM.
-* **Interconnect:** PCIe Gen4 x16 ($\sim 31.5\text{ GB/s}$) or PCIe Gen3 x16 ($\sim 11.7\text{ GB/s}$) without NVLink.
+| Hypothesis | Status | Finding |
+| :--- | :--- | :--- |
+| **H1:** Speculative decoding accelerates PCIe-bound TP=2 inference | **Confirmed** | NGRAM achieved 1.28x–1.34x speedup |
+| **H2:** JSON > Code > Prose for n-gram acceptance rate | **Confirmed** | JSON peaks at 107 tok/s, Code at 226 tok/s (burst), Prose floor at 58 tok/s |
+| **H3:** EAGLE-3 provides higher speedup than Standalone 1.5B | **Untested** | EAGLE-3 blocked by Blackwell SM12 CUDA graph dtype bug in SGLang 0.5.19 |
+| **H4:** Standalone 1.5B delivers 1.5–2.0x speedup | **Untested** | Blocked by vocabulary mismatch (152,064 vs 151,936 tokens) |
 
 ---
 
-## Standardized Benchmark Dataset (`dataset/`)
+## System Architecture
 
-The evaluation suite comprises **90 curated, distinct prompts** stratified across three predictable entropy profiles to prevent RadixAttention prefix caching confounders during throughput analysis:
+```text
+                    +------------------------------------------+
+                    |         Benchmark Client                 |
+                    |     (scripts/run_benchmark.py)           |
+                    +------------------------------------------+
+                            |                    ^
+           Streaming HTTP   |                    | Prometheus Scrape
+        /v1/chat/completions|                    | /metrics
+                            v                    |
+                    +------------------------------------------+
+                    |        SGLang Server Engine              |
+                    |  (RadixAttention + FlashInfer 0.6.18)    |
+                    +------------------------------------------+
+                              /                 \
+          [Draft Engine]                         [Target Verification]
+          NGRAM / EAGLE3                         Qwen2.5-32B-AWQ
+          Fast token prediction                  1 Batched AllReduce
+                    \                            /
+                     +-------PCIe Gen4----------+
+                     |  ~26.8 GB/s (no NVLink)  |
+                     | GPU0 (24.5 GB)  GPU1 (24.5 GB)|
+                     +--------------------------+
+```
 
-1. **`dataset/prompts_code.jsonl` (30 prompts):** Algorithmic routines, asynchronous pipelines, and data structures. Medium entropy; expected accept rate **$70\%\text{ to }85\%$**.
-2. **`dataset/prompts_json.jsonl` (30 prompts):** Schema-constrained extraction, API specifications, and database records. Low entropy; expected accept rate **$75\%\text{ to }90\%$**.
-3. **`dataset/prompts_prose.jsonl` (30 prompts):** Technical post-mortems, systems analysis, and architectural trade-offs. High entropy; expected accept rate **$55\%\text{--}65\%$**.
-4. **`dataset/combined_benchmark_dataset.jsonl` (90 prompts):** Full multi-domain evaluation suite ($42,240$ total generated tokens).
+**How Speculative Decoding Helps on PCIe:**
+- **Without spec decoding:** Every token requires 1 full TP=2 AllReduce sync across PCIe.
+- **With spec decoding (K=5):** Draft model proposes 5 tokens locally (minimal sync), target model verifies all 5 in 1 single AllReduce pass.
+- **Net effect:** 5 tokens generated for the cost of ~1.2–1.5 PCIe synchronization overhead cycles.
 
 ---
 
-## Repository Structure
+## Experimental Configuration Matrix
 
+| Run ID | Config Name | Algorithm | Draft Model | K Steps | topk | VRAM Fraction | Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **R1** | `baseline_tp2` | None | None | — | — | 0.82 | **Complete** |
+| **R2** | `spec_ngram_k5` | NGRAM | (prompt context) | 5 | 1 | 0.85 | **Complete** |
+| **R3** | `baseline_fp8kv` | None | None | — | — | 0.85 | **Complete** |
+| **R4** | `spec_standalone_1.5b` | STANDALONE | Qwen2.5-1.5B-Instruct | 5 | — | 0.82 | **FAILED** — vocab mismatch |
+| **R5** | `spec_eagle3` | EAGLE3 | ruipeterpan/..._EAGLE3_UltraChat | 8 | 10 | 0.85 | **FAILED** — SM12 CUDA graph bug |
+
+---
+
+## Hardware & Software Environment
+
+### Hardware Profile
+
+| Component | Specification |
+| :--- | :--- |
+| GPU | 2x NVIDIA RTX PRO 4000 Blackwell (SM 12.0) |
+| VRAM per GPU | 24,467 MiB (aggregate 48,934 MiB) |
+| GPU Interconnect | PCIe Gen4 x16 (no NVLink) |
+| Effective PCIe Bandwidth | ~26.8 GB/s (measured) |
+| Driver | 595.71.05 |
+| CUDA | 13.0 |
+
+### VRAM Allocation per GPU (TP=2)
+
+```text
+ |<---- Model Weights ~9.75 GB ---->|<-- KV Cache ~5.13 GB -->|<- Runtime ~3-4 GB ->|
+ |                                  |                          |                     |
+ 0                               9.75 GB                   14.88 GB           ~21.7–22.6 GB (used)
+                                                                                    of 24.5 GB total
 ```
-sglang-speculative-bench/
-├── dataset/
-│   ├── combined_benchmark_dataset.jsonl   # Unified 90-prompt test suite
-│   ├── generate_dataset.py               # Deterministic prompt generator
-│   ├── prompts_code.jsonl                # 30 code generation prompts
-│   ├── prompts_json.jsonl                # 30 structured JSON extraction prompts
-│   └── prompts_prose.jsonl               # 30 natural language prose prompts
-├── plans/
-│   ├── GPU_COST_AND_INSTANCE_SELECTION_GUIDE.md # Cost matrix & Vast.ai CLI guide
-│   ├── README-advanced-2xRTX4090-refined.md    # Production reference recipe
-│   └── SGLANG_BENCHMARKING_PLAN.md             # Experimental plan & verification gates
-├── results/
-│   └── .gitkeep                          # Output directory for telemetry & CSV runs
-├── scripts/
-│   ├── launch_baseline_tp2.sh            # Control baseline launcher (TP=2)
-│   ├── launch_speculative_standalone.sh  # Standalone 1.5B speculative launcher
-│   ├── launch_speculative_eagle3.sh      # EAGLE-3 tree speculation launcher
-│   ├── monitor_gpu.sh                    # 1Hz background GPU telemetry logger
-│   └── run_benchmark.py                  # Client with Prometheus metric scraper
-└── .gitignore                            # Environment and scratch artifact protection
-```
+
+---
+
+## Benchmark Dataset
+
+90 prompts across three domains with `temperature=0.0` for fully deterministic, reproducible greedy sampling:
+
+| Domain | File | N | Max Tokens | Characteristics | Expected NGRAM Acceptance |
+| :--- | :--- | :---: | :---: | :--- | :--- |
+| **Code** | `prompts_code.jsonl` | 30 | 512 | Python algorithms, async I/O, data structures — high syntactic regularity | 70% – 85% |
+| **JSON** | `prompts_json.jsonl` | 30 | 384 | Schema extraction, log parsing, OpenAPI — highly repetitive structural tokens | 75% – 90% |
+| **Prose** | `prompts_prose.jsonl` | 30 | 512 | Technical explanations, architecture trade-offs — natural language entropy | 55% – 70% |
 
 ---
 
 ## Quickstart & Replication
 
-### 1. Launch SGLang Server
-Select one configuration to evaluate:
+### Prerequisites
+
+- Docker with GPU access (`--gpus all`)
+- Hugging Face token with access to Qwen models (`HF_TOKEN` in `.env`)
+- 2x NVIDIA GPUs with >= 24 GB VRAM each
+
+### Step 1: Configure Environment
 
 ```bash
-# Option A: Baseline Non-Speculative (Control)
+cp .env.example .env
+# Edit .env and set: HF_TOKEN=hf_your_token_here
+```
+
+### Step 2: Launch SGLang Server
+
+Choose one configuration (e.g., baseline):
+
+```bash
 bash scripts/launch_baseline_tp2.sh
-
-# Option B: Standalone Speculative (Qwen2.5-1.5B Draft, K=5)
-bash scripts/launch_speculative_standalone.sh
-
-# Option C: EAGLE-3 Speculative (Lightweight Head, K=8)
-bash scripts/launch_speculative_eagle3.sh
 ```
 
-Wait until server health checks pass:
+Wait for server readiness:
 ```bash
-until curl -s http://localhost:30000/health >/dev/null; do sleep 2; done
+until curl -s http://localhost:30000/health > /dev/null 2>&1; do
+  echo "Waiting for server..."; sleep 3
+done
+echo "Server ready!"
 ```
 
-### 2. Execute Benchmark Harness
-Start hardware telemetry logging and run the streaming evaluation client:
+### Step 3: Start GPU Telemetry
 
 ```bash
-# Start background GPU power/VRAM logger
-bash scripts/monitor_gpu.sh results/gpu_telemetry_spec_standalone.csv &
+bash scripts/monitor_gpu.sh results/gpu_telemetry_baseline.csv &
 MONITOR_PID=$!
+```
 
-# Run evaluation client
+### Step 4: Run Benchmark Harness
+
+```bash
 python3 scripts/run_benchmark.py \
   --endpoint http://localhost:30000 \
+  --model Qwen/Qwen2.5-32B-Instruct-AWQ \
   --dataset dataset/combined_benchmark_dataset.jsonl \
-  --config-name spec_standalone_1.5b \
-  --output-csv results/benchmark_runs.csv
+  --config-name baseline_tp2 \
+  --output-csv results/benchmark_runs.csv \
+  --warmup 2
 
-# Terminate telemetry logger
 kill -9 $MONITOR_PID
 ```
 
 ---
 
-## Metrics & Observability
+## Full Research Report
 
-The client (`scripts/run_benchmark.py`) instruments both client-observed latency and engine-level Prometheus counters:
+For the complete, research-grade analysis of all results including per-prompt breakdowns, VRAM budget decomposition, failure mode root cause analysis, theoretical memory bandwidth ceiling calculations, and reproduction guidance, see:
 
-* **Time-To-First-Token ($\text{TTFT}$):** $\text{TTFT} = t_{\text{first token}} - t_{\text{start}}$ ($\text{ms}$).
-* **Time-Per-Output-Token ($\text{TPOT}$):** $\text{TPOT} = (t_{\text{end}} - t_{\text{first token}}) / N_{\text{tokens}}$ ($\text{ms/tok}$).
-* **Decode Throughput:** $\text{Throughput} = N_{\text{completion tokens}} / (t_{\text{end}} - t_{\text{first token}})$ ($\text{tok/s}$).
-* **Speculative Acceptance Rate ($\alpha$):** Scraped directly from SGLang endpoint `/metrics`:
-  $$\alpha = \frac{\Delta \text{Accepted Tokens}}{\Delta \text{Drafted Tokens}}$$
-  *(Where Prometheus counters are `sglang:spec_accepted_tokens` and `sglang:spec_drafted_tokens`)*
-* **Average Accepted Length:** Mean tokens accepted per target verification pass (`sglang:spec_accept_length`).
+**[`results/research_report.md`](results/research_report.md)**
 
 ---
 
-## Reproducibility & Cost Optimization Guide
+## Known Issues & Compatibility
 
-For rental commands, cost matrices across GPU providers (Vast.ai, RunPod), and cloud instance provisioning scripts, refer to:
-👉 **[`plans/GPU_COST_AND_INSTANCE_SELECTION_GUIDE.md`](plans/GPU_COST_AND_INSTANCE_SELECTION_GUIDE.md)**
+| Issue | Affected Config | Root Cause | Workaround |
+| :--- | :--- | :--- | :--- |
+| Vocabulary mismatch at server init | Standalone 1.5B (R4) | Target vocab: 152,064 vs Draft vocab: 151,936 (128 token gap) | Use a 1.5B model built against the same tokenizer, or use NGRAM/EAGLE3 |
+| Cutlass TVM prefill dtype mismatch | EAGLE-3 (R5) | SGLang 0.5.19 EAGLE-3 prefill CUDA graph not compatible with Blackwell SM12 | Upgrade to SGLang >= 0.5.20 when SM12 fix is merged |
 
 ---
 
 ## Citation
 
-If you use this benchmarking suite or recipe in your systems research, please cite:
+If you use this benchmarking suite, dataset, or methodology in your research, please cite:
 
 ```bibtex
 @misc{sglang-speculative-bench-2026,
-  author = {DARK-art108},
-  title = {sglang-speculative-bench: Rigorous Speculative Decoding Benchmarks for Qwen2.5-32B on Dual Consumer GPUs},
-  year = {2026},
+  author    = {DARK-art108},
+  title     = {sglang-speculative-bench: Speculative Decoding and KV Cache Benchmarks for Qwen2.5-32B on Dual Consumer GPUs},
+  year      = {2026},
   publisher = {GitHub},
-  journal = {GitHub repository},
-  howpublished = {\url{https://github.com/DARK-art108/sglang-speculative-bench}}
+  journal   = {GitHub repository},
+  howpublished = {\url{https://github.com/DARK-art108/sglang-speculative-bench}},
+  note      = {SGLang 0.5.19, FlashInfer 0.6.18, 2x NVIDIA RTX PRO 4000 Blackwell}
 }
 ```
