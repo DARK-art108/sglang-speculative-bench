@@ -1,0 +1,59 @@
+=== turbollm.log ===
+[sysinfo] nvidia-smi enumerated 1 GPU(s): NVIDIA RTX 6000 Ada Generation=49140MB
+(node:156) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+  TurboLLM 1.13.5 is ready!
+
+  Local:   http://127.0.0.1:6996
+
+  API:     http://127.0.0.1:6996/api/v1/status
+  Stop:    Ctrl+C
+
+TurboLLM 1.13.5 listening on http://127.0.0.1:6996
+[chat] tool loop finished after 1 iteration(s); visible content length: 0
+[chat] BUG-001: final content is empty after stripping think blocks — making extra pass with tool_choice:none
+[chat] tool loop finished after 1 iteration(s); visible content length: 2192
+[chat] tool loop finished after 1 iteration(s); visible content length: 2325
+[chat] tool loop finished after 1 iteration(s); visible content length: 2288
+[chat] tool loop finished after 1 iteration(s); visible content length: 1578
+[chat] tool loop finished after 2 iteration(s); visible content length: 2640
+
+=== api status full ===
+{"version":"1.13.5","engine":{"id":"f9b0acc6-22bd-4e0c-a05e-8f9d34e96e79","name":"llama.cpp b9608 (vulkan)","kind":"llama-server","state":"running","port":8081,"pid":8245,"parallelSlots":1,"launchCommand":"/root/.turbollm/engines/llama.cpp-b9608-vulkan/llama-b9608/llama-server -m /root/.cache/huggingface/hub/ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF/Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf --host 127.0.0.1 --port 8081 --metrics -c 8192 -ngl 65 --parallel 1 --cache-type-k q8_0 --cache-type-v q8_0 --flash-attn on --threads 16 --mmproj /root/.cache/huggingface/hub/ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF/mmproj-Qwen3.8-27B-BF16.gguf --cache-reuse 256 --jinja --spec-type draft-mtp --spec-draft-n-max 16 --spec-draft-n-min 1 --temp 1 --top-k 20 --min-p 0"},"model":{"key":"qwen3.8-27b gsq-rco|IQ3_S|12120016960","name":"Qwen3.8-27B GSQ-RCO","quant":"IQ3_S","ctx":8192,"vision":true,"loadElapsedMs":0},"lastLoaded":{"modelKey":"qwen3.8-27b gsq-rco|IQ3_S|12120016960","engineId":"f9b0acc6-22bd-4e0c-a05e-8f9d34e96e79"},"selectedRemoteModel":"","engineStats":{"requests":0,"inputTokens":0,"outputTokens":0,"avgPromptTps":0,"avgGenTps":0,"sinceMs":463620,"activeRequests":0},"liveGeneration":null,"bench":{"running":false,"modelKey":"qwen3.8-27b gsq-rco|IQ3_S|12120016960","done":true,"bestTps":23.862352999516414,"candidates":[{"label":"probe ngl=32","params":{"ctx":8192,"ngl":32,"nCpuMoe":0,"parallel":1,"kvTypeK":"q8_0","flashAttn":"on"},"outcome":"ok","tps":null,"prefillTps":null,"ttftMs":null,"vramMb":null,"vramAbsMb":9172,"spillMb":null},{"label":"probe ngl=49","params":{"ctx":8192,"ngl":49,"nCpuMoe":0,"parallel":1,"kvTypeK":"q8_0","flashAttn":"on"},"outcome":"ok","tps":null,"prefillTps":null,"ttftMs":null,"vramMb":null,"vramAbsMb":12509,"spillMb":null},{"label":"probe ngl=57","params":{"ctx":8192,"ngl":57,"nCpuMoe":0,"parallel":1,"kvTypeK":"q8_0","flashAttn":"on"},"outcome":"ok","tps":null,"prefillTps":null,"ttftMs":null,"vramMb":null,"vramAbsMb":13821,"spillMb":null},{"label":"probe ngl=61","params":{"ctx":8192,"ngl":61,"nCpuMoe":0,"parallel":1,"kvTypeK":"q8_0","flashAttn":"on"},"outcome":"ok","tps":null,"prefillTps":null,"ttftMs":null,"vramMb":null,"vramAbsMb":14571,"spillMb":null},{"label":"probe ngl=63","params":{"ctx":8192,"ngl":63,"nCpuMoe":0,"parallel":1,"kvTypeK":"q8_0","flashAttn":"on"},"outcome":"ok","tps":null,"prefillTps":null,"ttftMs":null,"vramMb":null,"vramAbsMb":14920,"spillMb":null},{"label":"probe ngl=64","params":{"ctx":8192,"ngl":64,"nCpuMoe":0,"parallel":1,"kvTypeK":"q8_0","flashAttn":"on"},"outcome":"ok","tps":null,"prefillTps":null,"ttftMs":null,"vramMb":null,"vramAbsMb":15128,"spillMb":null},{"label":"probe ngl=65","params":{"ctx":8192,"ngl":65,"nCpuMoe":0,"parallel":1,"kvTypeK":"q8_0","flashAttn":"on"},"outcome":"ok","tps":null,"prefillTps":null,"ttftMs":null,"vramMb":null,"vramAbsMb":15315,"spillMb":null},{"label":"ngl=65","params":{"ctx":8192,"ngl":65,"nCpuMoe":0,"parallel":1,"kvTypeK":"q8_0","flashAttn":"on"},"outcome":"ok","tps":23.862352999516414,"prefillTps":1227.9605916924563,"ttftMs":5353.592,"vramMb":15595,"vramAbsMb":15605,"spillMb":null}]},"downloads":{"active":0},"engineProvision":{"active":false,"phase":"idle","backend":"","pct":0,"part":1,"parts":1,"error":null},"agentTasks":[],"engineBuild":{"active":false,"phase":"preparing","engine":"","log":[],"error":null},"terminalAvailable":true,"comfyui":{"enabled":false,"installed":false,"held":false,"blocked":false,"suspendedModelKey":null,"lastSignalAgoMs":null,"installedVersion":null,"currentVersion":2},"telemetryLevel":"full","uptimeSec":3787,"tunnel":{"active":false,"url":null,"error":null},"features":[]}
+
+=== turbollm install/version ===
+[sysinfo] nvidia-smi enumerated 1 GPU(s): NVIDIA RTX 6000 Ada Generation=49140MB
+(node:9073) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+
+=== node/npm ===
+v22.14.0
+10.9.2
+
+=== hf cache contents ===
+13G	/root/.cache/huggingface/hub/ISTA-DASLab
+4.0K	/root/.cache/huggingface/hub/kernels--kernels-community--sgl-flash-attn3
+
+=== any benchmark dirs ===
+/root/.turbollm:
+total 1932
+drwxr-xr-x 8 root root    4096 Sep 18 19:48 .
+drwx------ 1 root root    4096 Sep 18 19:01 ..
+-rw-r--r-- 1 root root   51739 Sep 18 19:47 config.json
+drwxr-xr-x 2 root root      50 Sep 18 18:50 downloads
+drwxr-xr-x 5 root root      58 Sep 18 18:59 engines
+drwxr-xr-x 3 root root      17 Sep 18 19:01 hf-cache
+drwxr-xr-x 2 root root     116 Sep 18 19:07 logs
+-rw-r--r-- 1 root root     590 Sep 18 19:47 models-cache.json
+drwxr-xr-x 2 root root      29 Sep 18 19:40 run
+-rw-r--r-- 1 root root     202 Sep 18 19:47 run-state.json
+drwxr-xr-x 3 root root    4096 Sep 18 19:15 telemetry
+-rw-r--r-- 1 root root  225280 Sep 18 18:38 turbollm.db
+-rw-r--r-- 1 root root   32768 Sep 18 19:32 turbollm.db-shm
+-rw-r--r-- 1 root root 1643912 Sep 18 19:32 turbollm.db-wal
+/root/.turbollm
+/root/.turbollm/turbollm.db
+/root/.turbollm/telemetry/bench-rate-limit.json
+/root/.turbollm/turbollm.db-wal
+/root/.turbollm/turbollm.db-shm
+/root/turbollm.log

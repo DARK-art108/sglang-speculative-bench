@@ -1,0 +1,60 @@
+[turbollm] starting engine "llama.cpp b9608 (vulkan)" on internal port 8081 (127.0.0.1 only — the engine's own port, NOT the TurboLLM app/UI port).
+0.00.108.214 I log_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.108.217 I device_info:
+0.00.108.274 I   - Vulkan0 : NVIDIA RTX 6000 Ada Generation (49386 MiB, 48698 MiB free)
+0.00.108.277 I   - CPU     : Intel(R) Core(TM) i9-14900KS (127287 MiB, 127287 MiB free)
+0.00.108.308 I system_info: n_threads = 16 (n_threads_batch = 16) / 32 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX_VNNI = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
+0.00.108.346 I srv          init: running without SSL
+0.00.108.375 I srv          init: using 31 threads for HTTP server
+0.00.108.376 I srv          init: The UI is disabled
+0.00.108.377 I srv          init: Use --ui/--no-ui (or deprecated --webui/--no-webui) to enable/disable
+0.00.108.469 I srv         start: binding port with default address family
+0.00.109.616 I srv  llama_server: loading model
+0.00.109.629 I srv    load_model: loading model '/root/.cache/huggingface/hub/ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF/Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf'
+0.00.545.684 I srv    load_model: [mtmd] estimated worst-case memory usage of mmproj is 1161.02 MiB
+0.00.996.405 I srv    load_model: [spec] estimated memory usage of MTP context is 162.02 MiB
+0.00.996.422 I common_init_result: fitting params to device memory ...
+0.00.996.422 I common_init_result: (for bugs during this step try to reproduce them with -fit off, or provide --verbose logs if the bug only occurs with -fit on)
+0.04.208.207 W llama_context: n_ctx_seq (8192) < n_ctx_train (262144) -- the full capacity of the model will not be utilized
+0.04.389.697 I common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
+0.04.483.187 I srv    load_model: creating MTP draft context against the target model '/root/.cache/huggingface/hub/ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF/Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf'
+0.04.483.225 W llama_context: n_ctx_seq (8192) < n_ctx_train (262144) -- the full capacity of the model will not be utilized
+0.04.502.312 W load_hparams: Qwen-VL models require at minimum 1024 image tokens to function correctly on grounding tasks
+0.04.502.314 W load_hparams: if you encounter problems with accuracy, try adding --image-min-tokens 1024
+0.04.502.315 W load_hparams: more info: https://github.com/ggml-org/llama.cpp/issues/16842
+
+0.04.818.460 I srv    load_model: loaded multimodal model, '/root/.cache/huggingface/hub/ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF/mmproj-Qwen3.8-27B-BF16.gguf'
+0.04.818.463 W srv    load_model: cache_reuse is not supported by multimodal, it will be disabled
+0.04.818.473 I srv    load_model: initializing slots, n_slots = 1
+0.04.885.925 I common_context_can_seq_rm: the context supports bounded partial sequence removal
+0.04.941.934 I common_speculative_impl_draft_mtp: adding speculative implementation 'draft-mtp'
+0.04.941.945 I common_speculative_impl_draft_mtp: - n_max=16, n_min=1, p_min=0.00, n_embd=5120, backend_sampling=1
+0.04.941.947 I common_speculative_impl_draft_mtp: - gpu_layers=-1, cache_k=f16, cache_v=f16, ctx_tgt=yes, ctx_dft=yes, devices=[default]
+0.04.962.756 I srv    load_model: speculative decoding context initialized
+0.04.962.759 I slot   load_model: id  0 | task -1 | new slot, n_ctx = 8192
+0.04.962.811 I srv    load_model: prompt cache is enabled, size limit: 8192 MiB
+0.04.962.811 I srv    load_model: use `--cache-ram 0` to disable the prompt cache
+0.04.962.811 I srv    load_model: for more info see https://github.com/ggml-org/llama.cpp/pull/16391
+0.04.962.812 I srv    load_model: context checkpoints enabled, max = 32, min spacing = 256
+0.04.962.833 I srv          init: idle slots will be saved to prompt cache upon starting a new task
+0.04.981.919 I init: chat template, example_format: '<|im_start|>system
+Reasoning effort is set to xhigh. Please think carefully through the task, validate key assumptions, consider plausible alternatives, and prioritize correctness, consistency, and clarity in the final answer.
+
+You are a helpful assistant<|im_end|>
+<|im_start|>user
+Hello<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+Hi there<|im_end|>
+<|im_start|>user
+How are you?<|im_end|>
+<|im_start|>assistant
+<think>
+'
+0.04.996.686 I srv          init: init: chat template, thinking = 1
+0.04.996.719 I srv  llama_server: model loaded
+0.04.996.722 I srv  llama_server: server is listening on http://127.0.0.1:8081
+0.04.996.726 I srv  update_slots: all slots are idle

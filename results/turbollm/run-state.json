@@ -1,0 +1,11 @@
+{
+  "pid": 9073,
+  "execPath": "/usr/local/bin/node",
+  "argv": [
+    "/usr/local/bin/turbollm",
+    "--version"
+  ],
+  "cwd": "/root",
+  "version": "1.13.5",
+  "startedAt": "2026-09-18T19:47:59.523Z"
+}

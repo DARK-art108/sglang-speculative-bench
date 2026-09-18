@@ -1,0 +1,2119 @@
+{
+  "version": 4,
+  "daemon": {
+    "host": "127.0.0.1",
+    "port": 6996,
+    "lanBind": false,
+    "requireApiKey": true,
+    "authToken": "",
+    "idleTtlMinutes": 60,
+    "openBrowserOnStart": true,
+    "theme": "system",
+    "autoGenerateTitles": true,
+    "autoMemoryEnabled": false,
+    "experimental": {
+      "memory": false,
+      "cloudDeploy": false,
+      "routines": false,
+      "turboLink": false,
+      "remoteAccess": false
+    }
+  },
+  "telemetry": {
+    "level": "full",
+    "machineId": "24373fdb-78d2-40fc-8f2f-72059afb1635"
+  },
+  "apiKeys": [],
+  "links": [],
+  "chatStore": {
+    "kind": "sqlite"
+  },
+  "engines": [
+    {
+      "id": "f9b0acc6-22bd-4e0c-a05e-8f9d34e96e79",
+      "name": "llama.cpp b9608 (vulkan)",
+      "binPath": "/root/.turbollm/engines/llama.cpp-b9608-vulkan/llama-b9608/llama-server",
+      "kind": "llama-server",
+      "version": "9608 (70b54e140)",
+      "capabilities": {
+        "kvTypes": [
+          "f16",
+          "q8_0",
+          "q4_0",
+          "q4_1",
+          "q5_0",
+          "q5_1",
+          "q8_1",
+          "f32",
+          "bf16",
+          "iq4_nl"
+        ],
+        "flags": [
+          "--adaptive-decay",
+          "--adaptive-target",
+          "--alias",
+          "--api-key",
+          "--api-key-file",
+          "--api-prefix",
+          "--backend-sampling",
+          "--batch-size",
+          "--cache-idle-slots",
+          "--cache-list",
+          "--cache-prompt",
+          "--cache-ram",
+          "--cache-reuse",
+          "--cache-type-k",
+          "--cache-type-k-draft",
+          "--cache-type-v",
+          "--cache-type-v-draft",
+          "--chat-template",
+          "--chat-template-file",
+          "--chat-template-kwargs",
+          "--check-tensors",
+          "--checkpoint-min-step",
+          "--completion-bash",
+          "--cont-batching",
+          "--context-shift",
+          "--control-vector",
+          "--control-vector-layer-range",
+          "--control-vector-scaled",
+          "--cpu-mask",
+          "--cpu-mask-batch",
+          "--cpu-mask-batch-draft",
+          "--cpu-mask-draft",
+          "--cpu-moe",
+          "--cpu-moe-draft",
+          "--cpu-range",
+          "--cpu-range-batch",
+          "--cpu-range-draft",
+          "--cpu-strict",
+          "--cpu-strict-batch",
+          "--cpu-strict-batch-draft",
+          "--cpu-strict-draft",
+          "--ctx-checkpoints",
+          "--ctx-size",
+          "--defrag-thold",
+          "--device",
+          "--device-draft",
+          "--direct-io",
+          "--docker-repo",
+          "--draft-p-min",
+          "--draft-p-split",
+          "--dry-allowed-length",
+          "--dry-base",
+          "--dry-multiplier",
+          "--dry-penalty-last-n",
+          "--dry-sequence-breaker",
+          "--dynatemp-exp",
+          "--dynatemp-range",
+          "--embd-gemma-default",
+          "--embd-normalize",
+          "--embedding",
+          "--embeddings",
+          "--escape",
+          "--fim-qwen-1",
+          "--fim-qwen-14b-spec",
+          "--fim-qwen-30b-default",
+          "--fim-qwen-3b-default",
+          "--fim-qwen-7b-default",
+          "--fim-qwen-7b-spec",
+          "--fit",
+          "--fit-ctx",
+          "--fit-target",
+          "--flash-attn",
+          "--frequency-penalty",
+          "--gpt-oss-120b-default",
+          "--gpt-oss-20b-default",
+          "--gpu-layers",
+          "--gpu-layers-draft",
+          "--grammar",
+          "--grammar-file",
+          "--help",
+          "--hf-file",
+          "--hf-file-v",
+          "--hf-repo",
+          "--hf-repo-draft",
+          "--hf-repo-v",
+          "--hf-token",
+          "--host",
+          "--ignore-eos",
+          "--image-max-tokens",
+          "--image-min-tokens",
+          "--jinja",
+          "--json-schema",
+          "--json-schema-file",
+          "--keep",
+          "--kv-offload",
+          "--kv-unified",
+          "--list-devices",
+          "--log-colors",
+          "--log-disable",
+          "--log-file",
+          "--log-prefix",
+          "--log-prompts-dir",
+          "--log-timestamps",
+          "--log-verbose",
+          "--log-verbosity",
+          "--logit-bias",
+          "--lookup-cache-dynamic",
+          "--lookup-cache-static",
+          "--lora",
+          "--lora-init-without-apply",
+          "--lora-scaled",
+          "--main-gpu",
+          "--media-path",
+          "--metrics",
+          "--min-p",
+          "--mirostat",
+          "--mirostat-ent",
+          "--mirostat-lr",
+          "--mlock",
+          "--mmap",
+          "--mmproj",
+          "--mmproj-auto",
+          "--mmproj-offload",
+          "--mmproj-url",
+          "--model",
+          "--model-draft",
+          "--model-url",
+          "--model-vocoder",
+          "--models-autoload",
+          "--models-dir",
+          "--models-max",
+          "--models-preset",
+          "--n-cpu-moe",
+          "--n-cpu-moe-draft",
+          "--n-gpu-layers",
+          "--n-gpu-layers-draft",
+          "--n-predict",
+          "--no-cache-idle-slots",
+          "--no-cache-prompt",
+          "--no-cont-batching",
+          "--no-context-shift",
+          "--no-direct-io",
+          "--no-escape",
+          "--no-host",
+          "--no-jinja",
+          "--no-kv-offload",
+          "--no-kv-unified",
+          "--no-log-prefix",
+          "--no-log-timestamps",
+          "--no-mmap",
+          "--no-mmproj",
+          "--no-mmproj-auto",
+          "--no-mmproj-offload",
+          "--no-models-autoload",
+          "--no-op-offload",
+          "--no-perf",
+          "--no-prefill-assistant",
+          "--no-repack",
+          "--no-skip-chat-parsing",
+          "--no-slots",
+          "--no-spec-draft-backend-sampling",
+          "--no-ui",
+          "--no-ui-mcp-proxy",
+          "--no-warmup",
+          "--no-webui",
+          "--no-webui-mcp-proxy",
+          "--numa",
+          "--offline",
+          "--op-offload",
+          "--override-kv",
+          "--override-tensor",
+          "--override-tensor-draft",
+          "--parallel",
+          "--path",
+          "--perf",
+          "--poll",
+          "--poll-batch",
+          "--poll-batch-draft",
+          "--poll-draft",
+          "--pooling",
+          "--port",
+          "--predict",
+          "--prefill-assistant",
+          "--presence-penalty",
+          "--prio",
+          "--prio-batch",
+          "--prio-batch-draft",
+          "--prio-draft",
+          "--props",
+          "--reasoning",
+          "--reasoning-budget",
+          "--reasoning-budget-message",
+          "--reasoning-format",
+          "--repack",
+          "--repeat-last-n",
+          "--repeat-penalty",
+          "--rerank",
+          "--reranking",
+          "--reuse-port",
+          "--reverse-prompt",
+          "--rope-freq-base",
+          "--rope-freq-scale",
+          "--rope-scale",
+          "--rope-scaling",
+          "--rpc",
+          "--sampler-seq",
+          "--samplers",
+          "--sampling-seq",
+          "--seed",
+          "--skip-chat-parsing",
+          "--sleep-idle-seconds",
+          "--slot-prompt-similarity",
+          "--slot-save-path",
+          "--slots",
+          "--spec-default",
+          "--spec-draft-backend-sampling",
+          "--spec-draft-cpu-mask",
+          "--spec-draft-cpu-mask-batch",
+          "--spec-draft-cpu-moe",
+          "--spec-draft-cpu-range",
+          "--spec-draft-cpu-strict",
+          "--spec-draft-cpu-strict-batch",
+          "--spec-draft-device",
+          "--spec-draft-hf",
+          "--spec-draft-model",
+          "--spec-draft-n-cpu-moe",
+          "--spec-draft-n-max",
+          "--spec-draft-n-min",
+          "--spec-draft-ncmoe",
+          "--spec-draft-ngl",
+          "--spec-draft-override-tensor",
+          "--spec-draft-p-min",
+          "--spec-draft-p-split",
+          "--spec-draft-poll",
+          "--spec-draft-poll-batch",
+          "--spec-draft-prio",
+          "--spec-draft-prio-batch",
+          "--spec-draft-threads",
+          "--spec-draft-threads-batch",
+          "--spec-draft-type-k",
+          "--spec-draft-type-v",
+          "--spec-ngram-",
+          "--spec-ngram-map-k-min-hits",
+          "--spec-ngram-map-k-size-m",
+          "--spec-ngram-map-k-size-n",
+          "--spec-ngram-map-k4v-min-hits",
+          "--spec-ngram-map-k4v-size-m",
+          "--spec-ngram-map-k4v-size-n",
+          "--spec-ngram-mod-n-match",
+          "--spec-ngram-mod-n-max",
+          "--spec-ngram-mod-n-min",
+          "--spec-ngram-simple-min-hits",
+          "--spec-ngram-simple-size-m",
+          "--spec-ngram-simple-size-n",
+          "--spec-type",
+          "--special",
+          "--split-mode",
+          "--spm-infill",
+          "--sse-ping-interval",
+          "--ssl-cert-file",
+          "--ssl-key-file",
+          "--swa-checkpoints",
+          "--swa-full",
+          "--tags",
+          "--temp",
+          "--temperature",
+          "--tensor-split",
+          "--threads",
+          "--threads-batch",
+          "--threads-batch-draft",
+          "--threads-draft",
+          "--threads-http",
+          "--timeout",
+          "--tools",
+          "--top-k",
+          "--top-n-sigma",
+          "--top-nsigma",
+          "--top-p",
+          "--tts-use-guide-tokens",
+          "--typical",
+          "--typical-p",
+          "--ubatch-size",
+          "--ui",
+          "--ui-config",
+          "--ui-config-file",
+          "--ui-mcp-proxy",
+          "--usage",
+          "--verbose",
+          "--verbosity",
+          "--version",
+          "--vision-gemma-12b-default",
+          "--vision-gemma-4b-default",
+          "--warmup",
+          "--webui",
+          "--webui-config",
+          "--webui-config-file",
+          "--webui-mcp-proxy",
+          "--xtc-probability",
+          "--xtc-threshold",
+          "--yarn-attn-factor",
+          "--yarn-beta-fast",
+          "--yarn-beta-slow",
+          "--yarn-ext-factor",
+          "--yarn-orig-ctx",
+          "spec-type:draft-eagle3",
+          "spec-type:draft-mtp",
+          "spec-type:draft-simple",
+          "spec-type:ngram-cache",
+          "spec-type:ngram-map-k",
+          "spec-type:ngram-map-k4v",
+          "spec-type:ngram-mod",
+          "spec-type:ngram-simple",
+          "spec-type:none"
+        ],
+        "flagInfo": [
+          {
+            "name": "--adaptive-decay",
+            "kind": "valued"
+          },
+          {
+            "name": "--adaptive-target",
+            "kind": "valued"
+          },
+          {
+            "name": "--alias",
+            "kind": "valued"
+          },
+          {
+            "name": "--api-key",
+            "kind": "valued"
+          },
+          {
+            "name": "--api-key-file",
+            "kind": "valued"
+          },
+          {
+            "name": "--api-prefix",
+            "kind": "valued"
+          },
+          {
+            "name": "--backend-sampling",
+            "kind": "boolean"
+          },
+          {
+            "name": "--batch-size",
+            "kind": "valued"
+          },
+          {
+            "name": "--cache-idle-slots",
+            "kind": "boolean"
+          },
+          {
+            "name": "--cache-list",
+            "kind": "boolean"
+          },
+          {
+            "name": "--cache-prompt",
+            "kind": "boolean"
+          },
+          {
+            "name": "--cache-ram",
+            "kind": "valued"
+          },
+          {
+            "name": "--cache-reuse",
+            "kind": "valued"
+          },
+          {
+            "name": "--cache-type-k",
+            "kind": "enum",
+            "enumValues": [
+              "f32",
+              "f16",
+              "bf16",
+              "q8_0",
+              "q4_0",
+              "q4_1",
+              "iq4_nl",
+              "q5_0",
+              "q5_1"
+            ]
+          },
+          {
+            "name": "--cache-type-k-draft",
+            "kind": "enum",
+            "enumValues": [
+              "f32",
+              "f16",
+              "bf16",
+              "q8_0",
+              "q4_0",
+              "q4_1",
+              "iq4_nl",
+              "q5_0",
+              "q5_1"
+            ]
+          },
+          {
+            "name": "--cache-type-v",
+            "kind": "enum",
+            "enumValues": [
+              "f32",
+              "f16",
+              "bf16",
+              "q8_0",
+              "q4_0",
+              "q4_1",
+              "iq4_nl",
+              "q5_0",
+              "q5_1"
+            ]
+          },
+          {
+            "name": "--cache-type-v-draft",
+            "kind": "enum",
+            "enumValues": [
+              "f32",
+              "f16",
+              "bf16",
+              "q8_0",
+              "q4_0",
+              "q4_1",
+              "iq4_nl",
+              "q5_0",
+              "q5_1"
+            ]
+          },
+          {
+            "name": "--chat-template",
+            "kind": "valued"
+          },
+          {
+            "name": "--chat-template-file",
+            "kind": "valued"
+          },
+          {
+            "name": "--chat-template-kwargs",
+            "kind": "valued"
+          },
+          {
+            "name": "--check-tensors",
+            "kind": "boolean"
+          },
+          {
+            "name": "--checkpoint-min-step",
+            "kind": "valued"
+          },
+          {
+            "name": "--completion-bash",
+            "kind": "boolean"
+          },
+          {
+            "name": "--cont-batching",
+            "kind": "boolean"
+          },
+          {
+            "name": "--context-shift",
+            "kind": "boolean"
+          },
+          {
+            "name": "--control-vector",
+            "kind": "valued"
+          },
+          {
+            "name": "--control-vector-layer-range",
+            "kind": "valued"
+          },
+          {
+            "name": "--control-vector-scaled",
+            "kind": "valued"
+          },
+          {
+            "name": "--cpu-mask",
+            "kind": "valued"
+          },
+          {
+            "name": "--cpu-mask-batch",
+            "kind": "valued"
+          },
+          {
+            "name": "--cpu-mask-batch-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--cpu-mask-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--cpu-moe",
+            "kind": "boolean"
+          },
+          {
+            "name": "--cpu-moe-draft",
+            "kind": "boolean"
+          },
+          {
+            "name": "--cpu-range",
+            "kind": "valued"
+          },
+          {
+            "name": "--cpu-range-batch",
+            "kind": "valued"
+          },
+          {
+            "name": "--cpu-range-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--cpu-strict",
+            "kind": "valued"
+          },
+          {
+            "name": "--cpu-strict-batch",
+            "kind": "valued"
+          },
+          {
+            "name": "--cpu-strict-batch-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--cpu-strict-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--ctx-checkpoints",
+            "kind": "valued"
+          },
+          {
+            "name": "--ctx-size",
+            "kind": "valued"
+          },
+          {
+            "name": "--defrag-thold",
+            "kind": "valued"
+          },
+          {
+            "name": "--device",
+            "kind": "valued"
+          },
+          {
+            "name": "--device-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--direct-io",
+            "kind": "boolean"
+          },
+          {
+            "name": "--docker-repo",
+            "kind": "valued"
+          },
+          {
+            "name": "--draft-p-min",
+            "kind": "valued"
+          },
+          {
+            "name": "--draft-p-split",
+            "kind": "valued"
+          },
+          {
+            "name": "--dry-allowed-length",
+            "kind": "valued"
+          },
+          {
+            "name": "--dry-base",
+            "kind": "valued"
+          },
+          {
+            "name": "--dry-multiplier",
+            "kind": "valued"
+          },
+          {
+            "name": "--dry-penalty-last-n",
+            "kind": "valued"
+          },
+          {
+            "name": "--dry-sequence-breaker",
+            "kind": "valued"
+          },
+          {
+            "name": "--dynatemp-exp",
+            "kind": "valued"
+          },
+          {
+            "name": "--dynatemp-range",
+            "kind": "valued"
+          },
+          {
+            "name": "--embd-gemma-default",
+            "kind": "boolean"
+          },
+          {
+            "name": "--embd-normalize",
+            "kind": "valued"
+          },
+          {
+            "name": "--embedding",
+            "kind": "boolean"
+          },
+          {
+            "name": "--embeddings",
+            "kind": "boolean"
+          },
+          {
+            "name": "--escape",
+            "kind": "boolean"
+          },
+          {
+            "name": "--fim-qwen-1",
+            "kind": "boolean"
+          },
+          {
+            "name": "--fim-qwen-14b-spec",
+            "kind": "boolean"
+          },
+          {
+            "name": "--fim-qwen-30b-default",
+            "kind": "boolean"
+          },
+          {
+            "name": "--fim-qwen-3b-default",
+            "kind": "boolean"
+          },
+          {
+            "name": "--fim-qwen-7b-default",
+            "kind": "boolean"
+          },
+          {
+            "name": "--fim-qwen-7b-spec",
+            "kind": "boolean"
+          },
+          {
+            "name": "--fit",
+            "kind": "enum",
+            "enumValues": [
+              "on",
+              "off"
+            ]
+          },
+          {
+            "name": "--fit-ctx",
+            "kind": "valued"
+          },
+          {
+            "name": "--fit-target",
+            "kind": "valued"
+          },
+          {
+            "name": "--flash-attn",
+            "kind": "enum",
+            "enumValues": [
+              "on",
+              "off",
+              "auto"
+            ]
+          },
+          {
+            "name": "--frequency-penalty",
+            "kind": "valued"
+          },
+          {
+            "name": "--gpt-oss-120b-default",
+            "kind": "boolean"
+          },
+          {
+            "name": "--gpt-oss-20b-default",
+            "kind": "boolean"
+          },
+          {
+            "name": "--gpu-layers",
+            "kind": "valued"
+          },
+          {
+            "name": "--gpu-layers-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--grammar",
+            "kind": "valued"
+          },
+          {
+            "name": "--grammar-file",
+            "kind": "valued"
+          },
+          {
+            "name": "--help",
+            "kind": "boolean"
+          },
+          {
+            "name": "--hf-file",
+            "kind": "valued"
+          },
+          {
+            "name": "--hf-file-v",
+            "kind": "valued"
+          },
+          {
+            "name": "--hf-repo",
+            "kind": "valued"
+          },
+          {
+            "name": "--hf-repo-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--hf-repo-v",
+            "kind": "valued"
+          },
+          {
+            "name": "--hf-token",
+            "kind": "valued"
+          },
+          {
+            "name": "--host",
+            "kind": "valued"
+          },
+          {
+            "name": "--ignore-eos",
+            "kind": "boolean"
+          },
+          {
+            "name": "--image-max-tokens",
+            "kind": "valued"
+          },
+          {
+            "name": "--image-min-tokens",
+            "kind": "valued"
+          },
+          {
+            "name": "--jinja",
+            "kind": "boolean"
+          },
+          {
+            "name": "--json-schema",
+            "kind": "valued"
+          },
+          {
+            "name": "--json-schema-file",
+            "kind": "valued"
+          },
+          {
+            "name": "--keep",
+            "kind": "valued"
+          },
+          {
+            "name": "--kv-offload",
+            "kind": "boolean"
+          },
+          {
+            "name": "--kv-unified",
+            "kind": "boolean"
+          },
+          {
+            "name": "--list-devices",
+            "kind": "boolean"
+          },
+          {
+            "name": "--log-colors",
+            "kind": "enum",
+            "enumValues": [
+              "on",
+              "off",
+              "auto"
+            ]
+          },
+          {
+            "name": "--log-disable",
+            "kind": "boolean"
+          },
+          {
+            "name": "--log-file",
+            "kind": "valued"
+          },
+          {
+            "name": "--log-prefix",
+            "kind": "boolean"
+          },
+          {
+            "name": "--log-prompts-dir",
+            "kind": "valued"
+          },
+          {
+            "name": "--log-timestamps",
+            "kind": "boolean"
+          },
+          {
+            "name": "--log-verbose",
+            "kind": "boolean"
+          },
+          {
+            "name": "--log-verbosity",
+            "kind": "valued"
+          },
+          {
+            "name": "--logit-bias",
+            "kind": "valued"
+          },
+          {
+            "name": "--lookup-cache-dynamic",
+            "kind": "valued"
+          },
+          {
+            "name": "--lookup-cache-static",
+            "kind": "valued"
+          },
+          {
+            "name": "--lora",
+            "kind": "valued"
+          },
+          {
+            "name": "--lora-init-without-apply",
+            "kind": "boolean"
+          },
+          {
+            "name": "--lora-scaled",
+            "kind": "valued"
+          },
+          {
+            "name": "--main-gpu",
+            "kind": "valued"
+          },
+          {
+            "name": "--media-path",
+            "kind": "valued"
+          },
+          {
+            "name": "--metrics",
+            "kind": "boolean"
+          },
+          {
+            "name": "--min-p",
+            "kind": "valued"
+          },
+          {
+            "name": "--mirostat",
+            "kind": "valued"
+          },
+          {
+            "name": "--mirostat-ent",
+            "kind": "valued"
+          },
+          {
+            "name": "--mirostat-lr",
+            "kind": "valued"
+          },
+          {
+            "name": "--mlock",
+            "kind": "boolean"
+          },
+          {
+            "name": "--mmap",
+            "kind": "boolean"
+          },
+          {
+            "name": "--mmproj",
+            "kind": "valued"
+          },
+          {
+            "name": "--mmproj-auto",
+            "kind": "boolean"
+          },
+          {
+            "name": "--mmproj-offload",
+            "kind": "boolean"
+          },
+          {
+            "name": "--mmproj-url",
+            "kind": "valued"
+          },
+          {
+            "name": "--model",
+            "kind": "valued"
+          },
+          {
+            "name": "--model-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--model-url",
+            "kind": "valued"
+          },
+          {
+            "name": "--model-vocoder",
+            "kind": "valued"
+          },
+          {
+            "name": "--models-autoload",
+            "kind": "boolean"
+          },
+          {
+            "name": "--models-dir",
+            "kind": "valued"
+          },
+          {
+            "name": "--models-max",
+            "kind": "valued"
+          },
+          {
+            "name": "--models-preset",
+            "kind": "valued"
+          },
+          {
+            "name": "--n-cpu-moe",
+            "kind": "valued"
+          },
+          {
+            "name": "--n-cpu-moe-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--n-gpu-layers",
+            "kind": "valued"
+          },
+          {
+            "name": "--n-gpu-layers-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--n-predict",
+            "kind": "valued"
+          },
+          {
+            "name": "--no-cache-idle-slots",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-cache-prompt",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-cont-batching",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-context-shift",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-direct-io",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-escape",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-host",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-jinja",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-kv-offload",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-kv-unified",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-log-prefix",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-log-timestamps",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-mmap",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-mmproj",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-mmproj-auto",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-mmproj-offload",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-models-autoload",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-op-offload",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-perf",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-prefill-assistant",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-repack",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-skip-chat-parsing",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-slots",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-spec-draft-backend-sampling",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-ui",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-ui-mcp-proxy",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-warmup",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-webui",
+            "kind": "boolean"
+          },
+          {
+            "name": "--no-webui-mcp-proxy",
+            "kind": "boolean"
+          },
+          {
+            "name": "--numa",
+            "kind": "valued"
+          },
+          {
+            "name": "--offline",
+            "kind": "boolean"
+          },
+          {
+            "name": "--op-offload",
+            "kind": "boolean"
+          },
+          {
+            "name": "--override-kv",
+            "kind": "valued"
+          },
+          {
+            "name": "--override-tensor",
+            "kind": "valued"
+          },
+          {
+            "name": "--override-tensor-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--parallel",
+            "kind": "valued"
+          },
+          {
+            "name": "--path",
+            "kind": "valued"
+          },
+          {
+            "name": "--perf",
+            "kind": "boolean"
+          },
+          {
+            "name": "--poll",
+            "kind": "valued"
+          },
+          {
+            "name": "--poll-batch",
+            "kind": "valued"
+          },
+          {
+            "name": "--poll-batch-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--poll-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--pooling",
+            "kind": "enum",
+            "enumValues": [
+              "none",
+              "mean",
+              "cls",
+              "last",
+              "rank"
+            ]
+          },
+          {
+            "name": "--port",
+            "kind": "valued"
+          },
+          {
+            "name": "--predict",
+            "kind": "valued"
+          },
+          {
+            "name": "--prefill-assistant",
+            "kind": "boolean"
+          },
+          {
+            "name": "--presence-penalty",
+            "kind": "valued"
+          },
+          {
+            "name": "--prio",
+            "kind": "valued"
+          },
+          {
+            "name": "--prio-batch",
+            "kind": "valued"
+          },
+          {
+            "name": "--prio-batch-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--prio-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--props",
+            "kind": "boolean"
+          },
+          {
+            "name": "--reasoning",
+            "kind": "enum",
+            "enumValues": [
+              "on",
+              "off",
+              "auto"
+            ]
+          },
+          {
+            "name": "--reasoning-budget",
+            "kind": "valued"
+          },
+          {
+            "name": "--reasoning-budget-message",
+            "kind": "valued"
+          },
+          {
+            "name": "--reasoning-format",
+            "kind": "valued"
+          },
+          {
+            "name": "--repack",
+            "kind": "boolean"
+          },
+          {
+            "name": "--repeat-last-n",
+            "kind": "valued"
+          },
+          {
+            "name": "--repeat-penalty",
+            "kind": "valued"
+          },
+          {
+            "name": "--rerank",
+            "kind": "boolean"
+          },
+          {
+            "name": "--reranking",
+            "kind": "boolean"
+          },
+          {
+            "name": "--reuse-port",
+            "kind": "boolean"
+          },
+          {
+            "name": "--reverse-prompt",
+            "kind": "valued"
+          },
+          {
+            "name": "--rope-freq-base",
+            "kind": "valued"
+          },
+          {
+            "name": "--rope-freq-scale",
+            "kind": "valued"
+          },
+          {
+            "name": "--rope-scale",
+            "kind": "valued"
+          },
+          {
+            "name": "--rope-scaling",
+            "kind": "enum",
+            "enumValues": [
+              "none",
+              "linear",
+              "yarn"
+            ]
+          },
+          {
+            "name": "--rpc",
+            "kind": "valued"
+          },
+          {
+            "name": "--sampler-seq",
+            "kind": "valued"
+          },
+          {
+            "name": "--samplers",
+            "kind": "valued"
+          },
+          {
+            "name": "--sampling-seq",
+            "kind": "valued"
+          },
+          {
+            "name": "--seed",
+            "kind": "valued"
+          },
+          {
+            "name": "--skip-chat-parsing",
+            "kind": "boolean"
+          },
+          {
+            "name": "--sleep-idle-seconds",
+            "kind": "valued"
+          },
+          {
+            "name": "--slot-prompt-similarity",
+            "kind": "valued"
+          },
+          {
+            "name": "--slot-save-path",
+            "kind": "valued"
+          },
+          {
+            "name": "--slots",
+            "kind": "boolean"
+          },
+          {
+            "name": "--spec-default",
+            "kind": "boolean"
+          },
+          {
+            "name": "--spec-draft-backend-sampling",
+            "kind": "boolean"
+          },
+          {
+            "name": "--spec-draft-cpu-mask",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-cpu-mask-batch",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-cpu-moe",
+            "kind": "boolean"
+          },
+          {
+            "name": "--spec-draft-cpu-range",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-cpu-strict",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-cpu-strict-batch",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-device",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-hf",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-model",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-n-cpu-moe",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-n-max",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-n-min",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-ncmoe",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-ngl",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-override-tensor",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-p-min",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-p-split",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-poll",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-poll-batch",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-prio",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-prio-batch",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-threads",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-threads-batch",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-draft-type-k",
+            "kind": "enum",
+            "enumValues": [
+              "f32",
+              "f16",
+              "bf16",
+              "q8_0",
+              "q4_0",
+              "q4_1",
+              "iq4_nl",
+              "q5_0",
+              "q5_1"
+            ]
+          },
+          {
+            "name": "--spec-draft-type-v",
+            "kind": "enum",
+            "enumValues": [
+              "f32",
+              "f16",
+              "bf16",
+              "q8_0",
+              "q4_0",
+              "q4_1",
+              "iq4_nl",
+              "q5_0",
+              "q5_1"
+            ]
+          },
+          {
+            "name": "--spec-ngram-",
+            "kind": "boolean"
+          },
+          {
+            "name": "--spec-ngram-map-k-min-hits",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-ngram-map-k-size-m",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-ngram-map-k-size-n",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-ngram-map-k4v-min-hits",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-ngram-map-k4v-size-m",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-ngram-map-k4v-size-n",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-ngram-mod-n-match",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-ngram-mod-n-max",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-ngram-mod-n-min",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-ngram-simple-min-hits",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-ngram-simple-size-m",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-ngram-simple-size-n",
+            "kind": "valued"
+          },
+          {
+            "name": "--spec-type",
+            "kind": "valued"
+          },
+          {
+            "name": "--special",
+            "kind": "boolean"
+          },
+          {
+            "name": "--split-mode",
+            "kind": "enum",
+            "enumValues": [
+              "none",
+              "layer",
+              "row",
+              "tensor"
+            ]
+          },
+          {
+            "name": "--spm-infill",
+            "kind": "boolean"
+          },
+          {
+            "name": "--sse-ping-interval",
+            "kind": "valued"
+          },
+          {
+            "name": "--ssl-cert-file",
+            "kind": "valued"
+          },
+          {
+            "name": "--ssl-key-file",
+            "kind": "valued"
+          },
+          {
+            "name": "--swa-checkpoints",
+            "kind": "valued"
+          },
+          {
+            "name": "--swa-full",
+            "kind": "boolean"
+          },
+          {
+            "name": "--tags",
+            "kind": "valued"
+          },
+          {
+            "name": "--temp",
+            "kind": "valued"
+          },
+          {
+            "name": "--temperature",
+            "kind": "valued"
+          },
+          {
+            "name": "--tensor-split",
+            "kind": "valued"
+          },
+          {
+            "name": "--threads",
+            "kind": "valued"
+          },
+          {
+            "name": "--threads-batch",
+            "kind": "valued"
+          },
+          {
+            "name": "--threads-batch-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--threads-draft",
+            "kind": "valued"
+          },
+          {
+            "name": "--threads-http",
+            "kind": "valued"
+          },
+          {
+            "name": "--timeout",
+            "kind": "valued"
+          },
+          {
+            "name": "--tools",
+            "kind": "valued"
+          },
+          {
+            "name": "--top-k",
+            "kind": "valued"
+          },
+          {
+            "name": "--top-n-sigma",
+            "kind": "valued"
+          },
+          {
+            "name": "--top-nsigma",
+            "kind": "valued"
+          },
+          {
+            "name": "--top-p",
+            "kind": "valued"
+          },
+          {
+            "name": "--tts-use-guide-tokens",
+            "kind": "boolean"
+          },
+          {
+            "name": "--typical",
+            "kind": "valued"
+          },
+          {
+            "name": "--typical-p",
+            "kind": "valued"
+          },
+          {
+            "name": "--ubatch-size",
+            "kind": "valued"
+          },
+          {
+            "name": "--ui",
+            "kind": "boolean"
+          },
+          {
+            "name": "--ui-config",
+            "kind": "valued"
+          },
+          {
+            "name": "--ui-config-file",
+            "kind": "valued"
+          },
+          {
+            "name": "--ui-mcp-proxy",
+            "kind": "boolean"
+          },
+          {
+            "name": "--usage",
+            "kind": "boolean"
+          },
+          {
+            "name": "--verbose",
+            "kind": "boolean"
+          },
+          {
+            "name": "--verbosity",
+            "kind": "valued"
+          },
+          {
+            "name": "--version",
+            "kind": "boolean"
+          },
+          {
+            "name": "--vision-gemma-12b-default",
+            "kind": "boolean"
+          },
+          {
+            "name": "--vision-gemma-4b-default",
+            "kind": "boolean"
+          },
+          {
+            "name": "--warmup",
+            "kind": "boolean"
+          },
+          {
+            "name": "--webui",
+            "kind": "boolean"
+          },
+          {
+            "name": "--webui-config",
+            "kind": "valued"
+          },
+          {
+            "name": "--webui-config-file",
+            "kind": "valued"
+          },
+          {
+            "name": "--webui-mcp-proxy",
+            "kind": "boolean"
+          },
+          {
+            "name": "--xtc-probability",
+            "kind": "valued"
+          },
+          {
+            "name": "--xtc-threshold",
+            "kind": "valued"
+          },
+          {
+            "name": "--yarn-attn-factor",
+            "kind": "valued"
+          },
+          {
+            "name": "--yarn-beta-fast",
+            "kind": "valued"
+          },
+          {
+            "name": "--yarn-beta-slow",
+            "kind": "valued"
+          },
+          {
+            "name": "--yarn-ext-factor",
+            "kind": "valued"
+          },
+          {
+            "name": "--yarn-orig-ctx",
+            "kind": "valued"
+          }
+        ]
+      },
+      "addedAt": "2026-09-18T18:36:43.871Z",
+      "updatePolicy": "notify"
+    },
+    {
+      "id": "61cedf30-fe85-4b76-aa94-44324ca56834",
+      "name": "vLLM (vllm 0.29.0)",
+      "binPath": "/root/.turbollm/engines/vllm/venv/bin/python",
+      "kind": "vllm",
+      "version": "vllm 0.29.0",
+      "capabilities": {
+        "kvTypes": [],
+        "flags": []
+      },
+      "addedAt": "2026-09-18T19:00:21.673Z",
+      "updatePolicy": "notify"
+    }
+  ],
+  "customEngineSources": [],
+  "activeEngineId": "f9b0acc6-22bd-4e0c-a05e-8f9d34e96e79",
+  "modelDirs": [
+    "/root/.cache/huggingface/hub"
+  ],
+  "primaryModelDir": "/root/.cache/huggingface/hub",
+  "modelProfiles": {
+    "qwen3.8-27b gsq-rco|IQ3_S|12120016960": {
+      "f9b0acc6-22bd-4e0c-a05e-8f9d34e96e79": {
+        "profile": {
+          "ctx": 8192,
+          "ngl": 65,
+          "nCpuMoe": 0,
+          "parallel": 1,
+          "kvUnified": true,
+          "kvTypeK": "q8_0",
+          "kvTypeV": "q8_0",
+          "flashAttn": "on",
+          "kvOffload": true,
+          "threads": 0,
+          "threadsBatch": 0,
+          "useMmproj": true,
+          "mmprojGpu": true,
+          "imageMaxTokens": 0,
+          "cacheReuse": 256,
+          "useJinja": true,
+          "chatTemplateFile": "",
+          "speculative": "nextn",
+          "mtpHeadPath": "",
+          "draftModelPath": "",
+          "sampling": {
+            "temp": 1,
+            "topP": 0.95,
+            "topK": 20,
+            "minP": 0,
+            "repeatPenalty": 1,
+            "presencePenalty": 0,
+            "frequencyPenalty": 0,
+            "stop": []
+          },
+          "contextOverflow": "shift",
+          "nKeep": 0,
+          "ropeScalingType": "none",
+          "ropeFreqBase": 0,
+          "ropeFreqScale": 0,
+          "gpu": {
+            "splitMode": "layer",
+            "tensorSplit": [],
+            "mainGpu": -1,
+            "tensorParallelSize": 1
+          },
+          "vllm": {
+            "maxModelLen": 0,
+            "gpuMemoryUtilization": 0.9,
+            "maxNumSeqs": 0,
+            "dtype": "auto",
+            "kvCacheDtype": "auto",
+            "enforceEager": false,
+            "trustRemoteCode": false
+          },
+          "grammar": "",
+          "extraArgs": [],
+          "tunedBy": "bench"
+        },
+        "updatedAt": "2026-09-18T19:39:59.493Z"
+      }
+    }
+  },
+  "modelPresets": {
+    "qwen3.8-27b gsq-rco|IQ3_S|12120016960": [
+      {
+        "id": "aec6371b-4af5-46d3-bb2e-93f845023018",
+        "name": "Auto-tune 2026-09-18",
+        "engineId": "f9b0acc6-22bd-4e0c-a05e-8f9d34e96e79",
+        "profile": {
+          "ctx": 8192,
+          "ngl": 65,
+          "nCpuMoe": 0,
+          "parallel": 1,
+          "kvUnified": true,
+          "kvTypeK": "f16",
+          "kvTypeV": "f16",
+          "flashAttn": "on",
+          "kvOffload": true,
+          "threads": 0,
+          "threadsBatch": 0,
+          "useMmproj": true,
+          "mmprojGpu": true,
+          "imageMaxTokens": 0,
+          "cacheReuse": 256,
+          "useJinja": true,
+          "chatTemplateFile": "",
+          "speculative": "nextn",
+          "mtpHeadPath": "",
+          "draftModelPath": "",
+          "sampling": {
+            "temp": 1,
+            "topP": 0.95,
+            "topK": 20,
+            "minP": 0,
+            "repeatPenalty": 1,
+            "presencePenalty": 0,
+            "frequencyPenalty": 0,
+            "stop": []
+          },
+          "contextOverflow": "shift",
+          "nKeep": 0,
+          "ropeScalingType": "none",
+          "ropeFreqBase": 0,
+          "ropeFreqScale": 0,
+          "gpu": {
+            "splitMode": "layer",
+            "tensorSplit": [],
+            "mainGpu": -1,
+            "tensorParallelSize": 1
+          },
+          "vllm": {
+            "maxModelLen": 0,
+            "gpuMemoryUtilization": 0.9,
+            "maxNumSeqs": 0,
+            "dtype": "auto",
+            "kvCacheDtype": "auto",
+            "enforceEager": false,
+            "trustRemoteCode": false
+          },
+          "grammar": "",
+          "extraArgs": [],
+          "tunedBy": "bench"
+        },
+        "updatedAt": "2026-09-18T19:13:54.041Z",
+        "origin": "autotune",
+        "benchTps": 26.286087923678345
+      },
+      {
+        "id": "4a3c3cf3-4985-4f74-8d7f-a58b1ecccb56",
+        "name": "q8_0_kv",
+        "engineId": "f9b0acc6-22bd-4e0c-a05e-8f9d34e96e79",
+        "profile": {
+          "ctx": 8192,
+          "ngl": 65,
+          "nCpuMoe": 0,
+          "parallel": 1,
+          "kvUnified": true,
+          "kvTypeK": "q8_0",
+          "kvTypeV": "q8_0",
+          "flashAttn": "on",
+          "kvOffload": true,
+          "threads": 0,
+          "threadsBatch": 0,
+          "useMmproj": true,
+          "mmprojGpu": true,
+          "imageMaxTokens": 0,
+          "cacheReuse": 256,
+          "useJinja": true,
+          "chatTemplateFile": "",
+          "speculative": "nextn",
+          "mtpHeadPath": "",
+          "draftModelPath": "",
+          "sampling": {
+            "temp": 1,
+            "topP": 0.95,
+            "topK": 20,
+            "minP": 0,
+            "repeatPenalty": 1,
+            "presencePenalty": 0,
+            "frequencyPenalty": 0,
+            "stop": []
+          },
+          "contextOverflow": "shift",
+          "nKeep": 0,
+          "ropeScalingType": "none",
+          "ropeFreqBase": 0,
+          "ropeFreqScale": 0,
+          "gpu": {
+            "splitMode": "layer",
+            "tensorSplit": [],
+            "mainGpu": -1,
+            "tensorParallelSize": 1
+          },
+          "vllm": {
+            "maxModelLen": 0,
+            "gpuMemoryUtilization": 0.9,
+            "maxNumSeqs": 0,
+            "dtype": "auto",
+            "kvCacheDtype": "auto",
+            "enforceEager": false,
+            "trustRemoteCode": false
+          },
+          "grammar": "",
+          "extraArgs": [],
+          "tunedBy": "bench"
+        },
+        "updatedAt": "2026-09-18T19:27:06.783Z",
+        "origin": "manual"
+      },
+      {
+        "id": "c9f8cf6a-1a94-4736-a7ed-33260fd87679",
+        "name": "Auto-tune 2026-09-18 (2)",
+        "engineId": "f9b0acc6-22bd-4e0c-a05e-8f9d34e96e79",
+        "profile": {
+          "ctx": 8192,
+          "ngl": 65,
+          "nCpuMoe": 0,
+          "parallel": 1,
+          "kvUnified": true,
+          "kvTypeK": "q8_0",
+          "kvTypeV": "q8_0",
+          "flashAttn": "on",
+          "kvOffload": true,
+          "threads": 0,
+          "threadsBatch": 0,
+          "useMmproj": true,
+          "mmprojGpu": true,
+          "imageMaxTokens": 0,
+          "cacheReuse": 256,
+          "useJinja": true,
+          "chatTemplateFile": "",
+          "speculative": "nextn",
+          "mtpHeadPath": "",
+          "draftModelPath": "",
+          "sampling": {
+            "temp": 1,
+            "topP": 0.95,
+            "topK": 20,
+            "minP": 0,
+            "repeatPenalty": 1,
+            "presencePenalty": 0,
+            "frequencyPenalty": 0,
+            "stop": []
+          },
+          "contextOverflow": "shift",
+          "nKeep": 0,
+          "ropeScalingType": "none",
+          "ropeFreqBase": 0,
+          "ropeFreqScale": 0,
+          "gpu": {
+            "splitMode": "layer",
+            "tensorSplit": [],
+            "mainGpu": -1,
+            "tensorParallelSize": 1
+          },
+          "vllm": {
+            "maxModelLen": 0,
+            "gpuMemoryUtilization": 0.9,
+            "maxNumSeqs": 0,
+            "dtype": "auto",
+            "kvCacheDtype": "auto",
+            "enforceEager": false,
+            "trustRemoteCode": false
+          },
+          "grammar": "",
+          "extraArgs": [],
+          "tunedBy": "bench"
+        },
+        "updatedAt": "2026-09-18T19:39:59.493Z",
+        "origin": "autotune",
+        "benchTps": 23.862352999516414
+      }
+    ]
+  },
+  "lastPresetId": {
+    "qwen3.8-27b gsq-rco|IQ3_S|12120016960": "c9f8cf6a-1a94-4736-a7ed-33260fd87679"
+  },
+  "benchResults": {
+    "qwen3.8-27b gsq-rco|IQ3_S|12120016960": {
+      "modelKey": "qwen3.8-27b gsq-rco|IQ3_S|12120016960",
+      "tps": 23.862352999516414,
+      "ttftMs": 5353.592,
+      "vramMb": 15595,
+      "params": {
+        "ctx": 8192,
+        "ngl": 65,
+        "nCpuMoe": 0,
+        "parallel": 1,
+        "kvTypeK": "q8_0",
+        "flashAttn": "on"
+      },
+      "ts": "2026-09-18T19:39:59.493Z"
+    }
+  },
+  "vramHeadroomMb": 1024,
+  "lastLoaded": {
+    "modelKey": "qwen3.8-27b gsq-rco|IQ3_S|12120016960",
+    "engineId": "f9b0acc6-22bd-4e0c-a05e-8f9d34e96e79"
+  },
+  "selectedRemoteModel": "",
+  "autoLoadOnStart": false,
+  "hf": {
+    "token": ""
+  },
+  "gh": {
+    "token": ""
+  },
+  "modelDefaults": {
+    "ctx": 8192,
+    "ngl": 99,
+    "imageMaxTokens": 0,
+    "maxTokens": 0
+  },
+  "featuredOverrideUrl": "",
+  "comfyui": {
+    "enabled": false,
+    "gatePath": "",
+    "url": "",
+    "reverseGate": false,
+    "cachePersist": false
+  },
+  "gateway": {
+    "autoSwap": true,
+    "keepN": 1
+  },
+  "requestLog": {
+    "enabled": true,
+    "captureBodies": false,
+    "maxEntries": 500
+  },
+  "tools": {
+    "search": {
+      "provider": "tavily"
+    },
+    "toolPolicies": {},
+    "autoAllowAll": false
+  },
+  "mcp": {
+    "servers": []
+  },
+  "agents": {
+    "agents": [
+      {
+        "id": "default",
+        "name": "Default Agent",
+        "description": "Full capabilities — all skills, reads its workspace, writes its own config dir.",
+        "builtin": true,
+        "skills": [
+          "*"
+        ],
+        "readRoots": [
+          "/root/.turbollm"
+        ],
+        "writeRoots": [
+          "/root/.turbollm"
+        ],
+        "callableAgents": [
+          "*"
+        ],
+        "maxIterations": 30
+      }
+    ]
+  },
+  "customAgents": [],
+  "builtinAgentOverrides": {},
+  "build": {
+    "toolchainDirs": []
+  },
+  "code": {
+    "agentsMdProjectCandidates": [
+      "AGENTS.md",
+      "agents.md",
+      "CLAUDE.md"
+    ],
+    "agentsMdGlobalCandidates": [
+      "agents.md",
+      "AGENTS.md",
+      "CLAUDE.md"
+    ],
+    "defaultAgent": "turbollm"
+  },
+  "cloudDeploy": {
+    "runpodTemplateId": ""
+  },
+  "remoteAccess": {
+    "enabled": false,
+    "provider": "cloudflare-quick",
+    "ingressPort": 6997,
+    "cloudflare": {
+      "tunnelToken": "",
+      "hostname": "",
+      "accessTeamDomain": "",
+      "accessAud": "",
+      "requireAccess": false
+    },
+    "ngrok": {
+      "authtoken": "",
+      "domain": ""
+    },
+    "tailscale": {
+      "port": 443
+    },
+    "custom": {
+      "publicUrl": ""
+    },
+    "tokenGrant": {
+      "capabilities": [
+        "models:use"
+      ]
+    },
+    "lastUrl": ""
+  },
+  "appUpdate": {
+    "policy": "notify",
+    "dismissedVersion": ""
+  },
+  "api": {
+    "ext": {
+      "enabled": false
+    }
+  },
+  "onboarding": {
+    "status": "skipped",
+    "profile": "pro",
+    "completedAt": null,
+    "schemaVersion": 1,
+    "everLoadedModel": true
+  }
+}

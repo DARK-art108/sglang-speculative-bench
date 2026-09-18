@@ -1,0 +1,17 @@
+0.00.109.629 I srv    load_model: loading model '/root/.cache/huggingface/hub/ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF/Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf'
+0.00.545.684 I srv    load_model: [mtmd] estimated worst-case memory usage of mmproj is 1161.02 MiB
+0.00.996.405 I srv    load_model: [spec] estimated memory usage of MTP context is 162.02 MiB
+0.04.483.187 I srv    load_model: creating MTP draft context against the target model '/root/.cache/huggingface/hub/ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF/Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf'
+0.04.818.460 I srv    load_model: loaded multimodal model, '/root/.cache/huggingface/hub/ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF/mmproj-Qwen3.8-27B-BF16.gguf'
+0.04.818.463 W srv    load_model: cache_reuse is not supported by multimodal, it will be disabled
+0.04.818.473 I srv    load_model: initializing slots, n_slots = 1
+0.04.962.756 I srv    load_model: speculative decoding context initialized
+0.04.962.759 I slot   load_model: id  0 | task -1 | new slot, n_ctx = 8192
+0.04.962.811 I srv    load_model: prompt cache is enabled, size limit: 8192 MiB
+0.04.962.811 I srv    load_model: use `--cache-ram 0` to disable the prompt cache
+0.04.962.811 I srv    load_model: for more info see https://github.com/ggml-org/llama.cpp/pull/16391
+0.04.962.812 I srv    load_model: context checkpoints enabled, max = 32, min spacing = 256
+===FULL-LOG-SIZE===
+  192 /root/.turbollm/logs/engine-61cedf30-fe85-4b76-aa94-44324ca56834.log
+   60 /root/.turbollm/logs/engine-f9b0acc6-22bd-4e0c-a05e-8f9d34e96e79.log
+  252 total

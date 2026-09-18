@@ -1,0 +1,200 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00003-of-00018.safetensors",
+      "sha256": "2e1bf62cbcd406eaa64b60d10353e1f0ef4039d0976e56f05cabe953454f9968",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00003-of-00018.safetensors",
+      "at": "2026-09-18T18:50:58.766Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "chat_template.jinja",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/chat_template.jinja",
+      "at": "2026-09-18T18:50:59.068Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "config.json",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/config.json",
+      "at": "2026-09-18T18:50:59.310Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "generation_config.json",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/generation_config.json",
+      "at": "2026-09-18T18:50:59.567Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00002-of-00018.safetensors",
+      "sha256": "06a148c01bfbe3faa14a5f184a7ff29a706f7ae1c8b2705d2058e26d17a001fb",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00002-of-00018.safetensors",
+      "at": "2026-09-18T18:51:10.904Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00001-of-00018.safetensors",
+      "sha256": "ba0ce20aae489ad196733da5064bcdf159a1fe84f53336648196e1ebb7751b1c",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00001-of-00018.safetensors",
+      "at": "2026-09-18T18:52:10.456Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00004-of-00018.safetensors",
+      "sha256": "511e34063187882659753c4d93f3859f93c019fd438d8813071921c81d9a3f1a",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00004-of-00018.safetensors",
+      "at": "2026-09-18T18:52:27.088Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00005-of-00018.safetensors",
+      "sha256": "635cb53446dc74f219740fc59e18b774f877b803b9722e289ca62575a6efa701",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00005-of-00018.safetensors",
+      "at": "2026-09-18T18:52:48.060Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00007-of-00018.safetensors",
+      "sha256": "80b0c49033e9a0d5762562aa12f4acdb7f54da586f3d0110f28c48d91cf07892",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00007-of-00018.safetensors",
+      "at": "2026-09-18T18:53:26.622Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00006-of-00018.safetensors",
+      "sha256": "0bc5214fac607f0e6cc92eec3789d4b8559410ef9fce66621ba8158e8410dae0",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00006-of-00018.safetensors",
+      "at": "2026-09-18T18:53:43.190Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00009-of-00018.safetensors",
+      "sha256": "af3c48cc37af44f3db6ae0579baf019180d48d9c527caa0a1f03ff85813a56d8",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00009-of-00018.safetensors",
+      "at": "2026-09-18T18:54:23.825Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00008-of-00018.safetensors",
+      "sha256": "7192c5b66185d3592927daabee1cc19e6f6e0ce75988ee20e824b624765fda79",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00008-of-00018.safetensors",
+      "at": "2026-09-18T18:54:38.332Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00011-of-00018.safetensors",
+      "sha256": "5f3ae1b948aeee39da77aec558e8236cd65fe4d7cb7686a76bb007acc563c6d8",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00011-of-00018.safetensors",
+      "at": "2026-09-18T18:55:16.788Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00010-of-00018.safetensors",
+      "sha256": "163490a76f3bea3a40855b7efc04ce6d27afaf1a34f0bbde495b9491f76457c9",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00010-of-00018.safetensors",
+      "at": "2026-09-18T18:55:40.063Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00013-of-00018.safetensors",
+      "sha256": "06ab79a41f74c9c5cb734816feb0c7fc364104b227165ee7391231e1155aa02a",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00013-of-00018.safetensors",
+      "at": "2026-09-18T18:56:21.214Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00012-of-00018.safetensors",
+      "sha256": "a3de1c7114677a8f5ac5c4892c90e8238ea5c1e2038c80e757dfc87c3902ca55",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00012-of-00018.safetensors",
+      "at": "2026-09-18T18:56:28.177Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00015-of-00018.safetensors",
+      "sha256": "69224e27b9de4e7dbf6fc936c6eaae08447bda3b80a6c31a871ab451173afd22",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00015-of-00018.safetensors",
+      "at": "2026-09-18T18:57:06.309Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00014-of-00018.safetensors",
+      "sha256": "4138ed94603065ba884bbcadedb04d7718bb40117e85e6f5c6fc5b9c05b7a85b",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00014-of-00018.safetensors",
+      "at": "2026-09-18T18:57:36.627Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00017-of-00018.safetensors",
+      "sha256": "beb51f01056142ac4984bd800507b0dd0fd18de57f8e9ef6ea41d1a3598983a8",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00017-of-00018.safetensors",
+      "at": "2026-09-18T18:58:17.497Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00016-of-00018.safetensors",
+      "sha256": "73cb9a1089fb6155cb648609478d6633be8a5c7d9ca5a05bc8925ce8a553cefe",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00016-of-00018.safetensors",
+      "at": "2026-09-18T18:58:17.525Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model.safetensors.index.json",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model.safetensors.index.json",
+      "at": "2026-09-18T18:58:17.801Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "preprocessor_config.json",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/preprocessor_config.json",
+      "at": "2026-09-18T18:58:18.043Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "tokenizer.json",
+      "sha256": "0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/tokenizer.json",
+      "at": "2026-09-18T18:58:19.099Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "tokenizer_config.json",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/tokenizer_config.json",
+      "at": "2026-09-18T18:58:19.352Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "vocab.json",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/vocab.json",
+      "at": "2026-09-18T18:58:19.668Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "video_preprocessor_config.json",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/video_preprocessor_config.json",
+      "at": "2026-09-18T18:58:19.912Z"
+    },
+    {
+      "repo": "Qwen/Qwen3.8-27B",
+      "filename": "model-00018-of-00018.safetensors",
+      "sha256": "1d3479509e21494658f9b64d317f5ea8e55c4025d28c702d6c4d0b356ce8ea06",
+      "dest": "/root/.cache/huggingface/hub/Qwen3.8-27B/model-00018-of-00018.safetensors",
+      "at": "2026-09-18T18:59:21.260Z"
+    },
+    {
+      "repo": "ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF",
+      "filename": "mmproj-Qwen3.8-27B-BF16.gguf",
+      "sha256": "13cb7bebccbd04afc8f4090cb949ecf8937cdf7377c5799b1a0c594e7c0d3e16",
+      "dest": "/root/.cache/huggingface/hub/ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF/mmproj-Qwen3.8-27B-BF16.gguf",
+      "at": "2026-09-18T19:00:49.690Z"
+    },
+    {
+      "repo": "ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF",
+      "filename": "Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf",
+      "sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+      "dest": "/root/.cache/huggingface/hub/ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF/Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf",
+      "at": "2026-09-18T19:05:14.520Z"
+    }
+  ]
+}
